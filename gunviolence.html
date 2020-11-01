@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Gun Violence in the United States </title>
+    <script src="https://d3js.org/d3.v6.js"></script>
+    <link rel="stylesheet" href="styles.css"/>
+    <script src="https://d3js.org/d3-array.v2.min.js"></script>
+    <script src="https://d3js.org/d3-force.v2.min.js"></script>
+    <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Work+Sans:400,700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+<div id="header-wrap">
+    <header>
+        <h1>Gun Violence in the United States</h1>
+        <div id="team_info">Name: ; E-Mail: ; UID: </div>
+    </header>
+</div>
+<br>
+<div class="wrapper">
+    <!--
+    CSS arranges these in a pre-formed grid
+    filters will be included in the timeline div
+    All others have one div per visualization sitting in its own pre-formed box
+    Edit the pixel values in the CSS to change height/width
+    -->
+    <div class="timeline"></div>
+    <div class="map"></div>
+    <div class="by_state"></div>
+    <div class="by_gender"></div>
+    <div class="story"></div>
+    <div class="incident_list"></div>
+</div>
+
+<script src="js/main.js"></script>
+<script src="js/by_gender.js"></script>
+<script src="js/by_state.js"></script>
+<script src="js/filters.js"></script>
+<script src="js/map.js"></script>
+<script src="js/timeline.js"></script>
+</body>
+
+</html>

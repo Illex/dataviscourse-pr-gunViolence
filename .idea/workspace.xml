@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="9e34d1be-f39a-4820-a304-b9e61c43be4d" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/gunviolence.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/js/by_gender.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/js/by_state.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/js/filters.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/js/incident_list.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/js/main.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/js/map.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/js/story.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/js/timeline.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/styles.css" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="1jhihL1ikye0FPZIZqEsfi3bVTP" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="vue.rearranger.settings.migration" value="true" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/js" />
+    </key>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="9e34d1be-f39a-4820-a304-b9e61c43be4d" name="Default Changelist" comment="" />
+      <created>1604262841972</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1604262841972</updated>
+      <workItem from="1604262843123" duration="1332000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="425" y="195" key="run.anything.popup" timestamp="1604262867472">
+      <screen x="0" y="23" width="1440" height="826" />
+    </state>
+    <state x="425" y="195" key="run.anything.popup/0.23.1440.826@0.23.1440.826" timestamp="1604262867472" />
+  </component>
+</project>

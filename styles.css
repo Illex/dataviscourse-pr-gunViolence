@@ -1,0 +1,32 @@
+.wrapper {
+    display: grid;
+    /*edit pixels as needed*/
+    grid-template-columns: repeat(4, 300px);
+    grid-template-rows: repeat(2, 500px);
+    height: 1100px;
+    width: 1300px;
+    grid-gap: 10px;
+    grid-template-areas:
+    "a a b b"
+    "c d e f";
+}
+.timeline {
+    grid-area: a;
+}
+.map {
+    grid-area: b;
+}
+.by_state {
+    grid-area: c;
+}
+.by_gender {
+    grid-area: d;
+}
+
+.story {
+    grid-area: e;
+}
+
+.incident_list {
+    grid-area: f;
+}
