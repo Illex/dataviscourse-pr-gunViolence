@@ -11,9 +11,10 @@ with open("gunViolenceData.csv", 'r') as f:
         #make a temp dict
         temp = {
                 "id": "",
+                "date":"",
                 "state":"",
                 "city/county":"",
-                "addres":"",
+                "address":"",
                 "deaths":"",
                 "injuries":"",
                 "url":"",
@@ -23,19 +24,20 @@ with open("gunViolenceData.csv", 'r') as f:
         fields = line.split(",")
 
         #print(len(fields))
-        if len(fields) < 8 :
+        if len(fields) < 9 :
             continue
         #print(fields)
         #print()
 
-        temp["id"] = fields[0]
-        temp["state"] = fields[1]
-        temp["city/county"] = fields[2]
-        temp["address"] = fields[3]
-        temp["deaths"] = fields[4]
-        temp["injuries"] = fields[5]
-        temp["url"] = fields[6]
-        temp["source"] = fields[7]
+        temp["id"] = fields[0].strip(',')
+        temp["date"] = fields[1].strip(',')
+        temp["state"] = fields[2].strip(',')
+        temp["city/county"] = fields[3].strip(',')
+        temp["address"] = fields[4].strip(',')
+        temp["deaths"] = fields[5].strip(',')
+        temp["injuries"] = fields[6].strip(',')
+        temp["url"] = fields[7].strip(',')
+        temp["source"] = fields[8].strip(',')
         #load dict with all values
         #add dict to array
         eventList.append(temp)
@@ -43,8 +45,12 @@ with open("gunViolenceData.csv", 'r') as f:
 #make a new file to put json in
 with open ("data.txt", 'w') as out:
     #for every dict
+    out.write("[")
     for item in eventList:
         #write object to the file
         json.dump(item, out)
+        out.write(",")
+        out.write("\n")
+    out.write("]")
 #make a new file and write the array as json
 
