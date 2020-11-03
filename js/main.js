@@ -1,11 +1,12 @@
-words = d3.json("data.txt")//fill in with data loading function
+words = [] 
 
+words[0] = d3.json("data.txt")
+words[1] = d3.json("stateData.txt")
 
-Promise.all([words]).then( data =>
+//data at 0 is the gun violence json
+//data at 1 is the state population
+Promise.all(words).then(data =>
 {
     //verify loading works
     console.log(data);
-
-    //populate all the visualizations with data
-
 });
