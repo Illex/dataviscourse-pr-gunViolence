@@ -1,5 +1,6 @@
 #open the file
 import json
+from csv import reader
 
 #data processing for gun violence events
 with open("gunViolenceData.csv", 'r') as f:
@@ -8,7 +9,7 @@ with open("gunViolenceData.csv", 'r') as f:
     #make array to store all dicts
     eventList = []
     #make a while loop for all lines
-    for line in f:
+    for line in reader(f):
         #make a temp dict
         temp = {
                 "id": "",
@@ -19,16 +20,17 @@ with open("gunViolenceData.csv", 'r') as f:
                 "deaths":"",
                 "injuries":"",
                 "url":"",
-                "source":""
+                "source":"",
+                "sex":"",
                 }
 
-        fields = line.split(",")
+        #fields = line.split(",")
+        #print(line)
+        fields = line
 
         #print(len(fields))
-        if len(fields) < 9 :
+        if len(line) < 21 :
             continue
-        #print(fields)
-        #print()
 
         temp["id"] = fields[0].strip(',')
         temp["date"] = fields[1].strip(',')
@@ -39,6 +41,7 @@ with open("gunViolenceData.csv", 'r') as f:
         temp["injuries"] = fields[6].strip(',')
         temp["url"] = fields[7].strip(',')
         temp["source"] = fields[8].strip(',')
+        temp["sex"] = fields[21].strip(',')
         #load dict with all values
         #add dict to array
         eventList.append(temp)
