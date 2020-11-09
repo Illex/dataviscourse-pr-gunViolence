@@ -19,7 +19,7 @@ class Map{
 
     constructor(data){
         data = data[0];
-        this.projection = d3.geoAlbersUsa().scale(140).translate([365, 225]);
+        this.projection = d3.geoAlbersUsa().scale(800).translate([305, 250]);
         let states = {};
         for(let i = 0; i < data.length; i++){
             let item = data[i];
@@ -44,7 +44,6 @@ class Map{
     drawMap(country) {
         let geojson = topojson.feature(country, country.objects.states);
         let path = d3.geoPath(this.projection);
-        console.log(country)
         let states = geojson.features.map(
             state => {
                 let d = this.cases[state.properties.name]
@@ -61,10 +60,10 @@ class Map{
             }
         )
 
-        let selection = d3.select('.map').append('svg');
+        let selection = d3.select('.map').append('svg').attr('height', 500).attr('width', 610);
         selection.selectAll("path").data(states).enter().append('path')
             .attr('d', path).attr('id', d => d.name).classed('states', true)
-            .classed('boundary', true);
+            .classed('boundary', true)
     }
 
 }
