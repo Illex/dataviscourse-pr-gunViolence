@@ -8,5 +8,17 @@ words[1] = d3.json("data/stateData.txt")
 Promise.all(words).then(data =>
 {
     //verify loading works
-    console.log(data);
+    //console.log(data);
+
+    //create objects
+    create_objects(data)
+
 });
+
+function create_objects(data) {
+    const map = new Map(data)
+    d3.json('data/states.json').then(mapData => {
+        map.drawMap(mapData)
+    });
+}
+
