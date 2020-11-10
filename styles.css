@@ -41,3 +41,9 @@
 #slider{
     width: 610px;
 }
+#scroll{
+    width: 480px;
+    transform: rotate(90deg);
+    margin-top: 240px;
+    margin-left: 40px;
+}
