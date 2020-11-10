@@ -32,7 +32,7 @@
     <div class="timeline">
             <label>Filter by:</label>
             <select onchange="changeData()" id="dataFilter">
-                <option value="date">Date</option>
+                <option selected value="date">Date</option>
                 <option value="state">State</option>
                 <option value="municipality">Municipality</option>
                 <option value="deaths">Deaths</option>
@@ -45,6 +45,9 @@
             </select>
             <button onclick="selectAllHandler()"> Select All</button>
             <button onclick="clearHandler()"> Clear</button>
+            <br>
+            <br>
+            <input id="slider" type="range" min="1" max="63" value="31" class="range">
     </div>
     <div class="map"></div>
     <div class="by_state"></div>

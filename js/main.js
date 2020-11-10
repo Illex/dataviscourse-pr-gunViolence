@@ -20,5 +20,8 @@ function create_objects(data) {
     d3.json('data/states.json').then(mapData => {
         map.drawMap(mapData)
     });
+
+    const timeLine = new Timeline(data);
+    timeLine.draw();
 }
 
