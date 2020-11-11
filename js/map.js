@@ -85,8 +85,8 @@ class Map{
             maxes.push(max);
 
         }
-        this.ultimate_min = Math.max.apply(null, mins)
-        this.ultimate_max = Math.max.apply(null, maxes)
+        this.ultimate_min = Math.log(Math.max.apply(null, mins))
+        this.ultimate_max = Math.log(Math.max.apply(null, maxes))
         console.log(this.ultimate_max, this.ultimate_min)
 
     }
@@ -120,7 +120,7 @@ class Map{
             .attr('d', path).attr('id', d => d.name).classed('states', true)
             .classed('boundary', true).style("fill", function(d){
             let cap_year = 'cap_'+that.year;
-            let temp = that.colorScale(d[cap_year]);
+            let temp = that.colorScale(Math.log(d[cap_year]));
             return temp;
         })
 
