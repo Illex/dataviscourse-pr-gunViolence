@@ -21,49 +21,51 @@ class Timeline{
         //get gun violence to population rate 
 
         //storage for the rate at each month
-        //let globalRate = []
+        let globalRate = []
         //the default date
-        //let date = "2013-01";
-        //let counter = 0
+        let date = "2013-01";
+        let counter = 0
 
         //for every event
-        //for(let i = 0; i < this.data[0].length; i++){
+        for(let i = 0; i < this.data[0].length; i++){
             //if it's date is equal to the current one, increment
-         //   if(this.data[0][i].date.substr(0,7) == this.date){
-          //      counter++;
-           // }
+            if(this.data[0][i].date.substr(0,7) === date){
+                counter++;
+            }
             //if it's not, we're done counting events in that month
-            //else{
-          //      globalRate.push(counter);
-           //     this.date = this.data[0][i].date;
-            //    counter = 0;
-            //}
-        //}
-        //console.log(globalRate);
+            else{
+                //console.log(this.data[0][i].date.substr(0,7))
+                globalRate.push(counter);
+                date = this.data[0][i].date.substr(0,7);
+                counter = 0;
+            }
+        }
+        console.log("global rate");
+        console.log(globalRate);
 
         //add up the total population for each year
-//        let population = []
- //       populaiton["2013"] = 0;
-  //      populaiton["2014"] = 0;
-   //     populaiton["2015"] = 0;
-    //    populaiton["2016"] = 0;
-     //   populaiton["2017"] = 0;
-      //  populaiton["2018"] = 0;
+        let population = []
+        population["2013"] = 0;
+        population["2014"] = 0;
+        population["2015"] = 0;
+        population["2016"] = 0;
+        population["2017"] = 0;
+        population["2018"] = 0;
 
-       // for(let i = 0; i < this.data[1].length; i++)
-        //    populaiton["2013"] = this.data[1][i].pop2013;
-         //   populaiton["2014"] = this.data[1][i].pop2014;
-          //  populaiton["2015"] = this.data[1][i].pop2015;
-           // populaiton["2016"] = this.data[1][i].pop2016;
-            //populaiton["2017"] = this.data[1][i].pop2017;
-            //populaiton["2018"] = this.data[1][i].pop2018;
-        //}
+        for(let i = 0; i < this.data[1].length; i++){
+            population["2013"] = this.data[1][i].pop2013;
+            population["2014"] = this.data[1][i].pop2014;
+            population["2015"] = this.data[1][i].pop2015;
+            population["2016"] = this.data[1][i].pop2016;
+            population["2017"] = this.data[1][i].pop2017;
+            population["2018"] = this.data[1][i].pop2018;
+        }
 
         //console.log("population")
         //console.log(population)
 
         console.log(this.data)
-        let selection = d3.select(".timeline").append("svg").attr("height", 410).attr("width", 610).attr("id", "time-line")
+        //let selection = d3.select(".timeline").append("svg").attr("height", 410).attr("width", 610).attr("id", "time-line")
         //append g for each element on the svg
 
         //x axis goes from 0 to 63
