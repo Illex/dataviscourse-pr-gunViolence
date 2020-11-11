@@ -16,7 +16,9 @@ Promise.all(words).then(data =>
 });
 
 function create_objects(data) {
-    const map = new Map(data)
+    let year = '2013';
+
+    const map = new Map(data, year)
     d3.json('data/states.json').then(mapData => {
         map.drawMap(mapData)
     });

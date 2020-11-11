@@ -17,8 +17,11 @@ class StateData{
 
 class Map{
 
-    constructor(data){
+    constructor(data, year){
+        this.year = year;
+        this.stateData = data[1]
         data = data[0];
+
         this.projection = d3.geoAlbersUsa().scale(800).translate([305, 250]);
         let states = {};
         for(let i = 0; i < data.length; i++){
@@ -39,6 +42,44 @@ class Map{
             }
         }
         this.cases = states
+
+        this.colorScale = d3.scaleThreshold()
+            .domain([0, .25, .5, .75, 1])
+            .range(d3.schemeBlues[5]);
+        this.getPerCapita();
+    }
+
+    getPerCapita(){
+        console.log(this.cases)
+        let mins = []
+        let maxes = []
+
+        for(let year = 2013; year<=2018; year++){
+            let i = 0;
+            let min = 1000;
+            let max = 0;
+            for(let key in this.cases){
+                let state = this.stateData[i];
+                if(state != undefined){
+                    let population = state['pop'+year]
+                    let stateData = this.cases[key][year]
+                    let cap = stateData/population
+                    this.cases[key]['perCap'+year] = cap
+                    if(cap > max){
+                        max = cap
+                    }
+                    if(cap < min){
+                        min = cap
+                    }
+                }
+
+                i++;
+            }
+            mins.push(min);
+            maxes.push(max);
+        }
+        console.log(maxes, mins);
+
     }
 
     drawMap(country) {
@@ -60,10 +101,18 @@ class Map{
             }
         )
 
+        //plot map
         let selection = d3.select('.map').append('svg').attr('height', 500).attr('width', 610);
         selection.selectAll("path").data(states).enter().append('path')
             .attr('d', path).attr('id', d => d.name).classed('states', true)
             .classed('boundary', true)
+
+        //add color
+
+    }
+
+    updateYear(year){
+
     }
 
 }
