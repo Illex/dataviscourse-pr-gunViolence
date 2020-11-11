@@ -31,13 +31,14 @@
     grid-area: f;
 }
 .states {
-    fill: black;
+    fill: none;
 }
 .boundary {
     fill: none;
     stroke: black;
     stroke-width: .8px;
 }
+
 #slider{
     width: 610px;
 }
