@@ -5,7 +5,7 @@
     grid-template-rows: repeat(2, 500px);
     height: 1100px;
     width: 1300px;
-    grid-gap: 10px;
+    grid-gap: 50px;
     grid-template-areas:
     "a a b b"
     "c d e f";
