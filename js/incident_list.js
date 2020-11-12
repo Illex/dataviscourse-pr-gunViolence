@@ -40,6 +40,10 @@ class IncidentList{
                 .on("mouseout", function(d){
                     d3.select(this).attr("opacity", ".6")
                 })
+                .on("click", function(d){
+                    //add text label for each value in the event's object
+                    //add on click event for the text to open the event web page
+                })
         )
 
         //create the text labels for each rect
@@ -59,7 +63,7 @@ class IncidentList{
                 })
         )
 
-        let outline = d3.select("#incident-box-container").append("g").attr("id", "incident-box-left");
+        let outline = d3.select("#incident-box-container").append("g").attr("id", "incident-box-outline");
         //left 
         outline.append("line")
             .attr("x1", "5")

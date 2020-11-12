@@ -49,7 +49,6 @@ class Story{
              .attr("stroke-width", "4");
     }
 
-    update(){
-        //TODO: fill this in
-    }
+    //TODO: add event handler in incident list that will add text and button links to the story pane
+
 }

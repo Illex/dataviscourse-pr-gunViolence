@@ -63,7 +63,7 @@ with open("censusPopulation.csv", 'r') as f:
     #skip first 10 lines
     for i in range(0,9):
         f.readline()
-        
+
 
     states= []
     for line in f:
