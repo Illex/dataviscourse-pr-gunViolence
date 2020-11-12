@@ -96,14 +96,20 @@ let changeOrder = function(){
     console.log("change order")
 }
 
-let selectAllHandler = function(){
-    //TODO: fill this in
-    console.log("implement This")
-    console.log("selectAll")
-}
-
 let clearHandler = function(){
     //TODO: fill this in
     console.log("implement This")
     console.log("clear")
+}
+
+let changeYear = function(){
+    //TODO: fill this in
+    console.log("implement This")
+    console.log("changeYear")
+}
+
+let changeMonth = function(){
+    //TODO: fill this in
+    console.log("implement This")
+    console.log("changeMonth")
 }
