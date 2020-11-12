@@ -67,15 +67,16 @@ class IncidentList{
             .attr("y1", "0")
             .attr("y2", "500")
             .attr("stroke", "black")
+            .attr("opacity", ".8")
             .attr("stroke-width", "4");
         //right 
-        //outline = d3.select("#incident-box-container").append("g").attr("id", "incident-box-right");
         outline.append("line")
             .attr("x1", "275")
             .attr("x2", "275")
             .attr("y1", "0")
             .attr("y2", "500")
             .attr("stroke", "black")
+            .attr("opacity", ".8")
             .attr("stroke-width", "4");
         //top
         outline.append("line")
@@ -84,6 +85,7 @@ class IncidentList{
             .attr("y1", "2")
             .attr("y2", "2")
             .attr("stroke", "black")
+            .attr("opacity", ".8")
             .attr("stroke-width", "4");
         //bottom
         outline.append("line")
@@ -92,6 +94,7 @@ class IncidentList{
             .attr("y1", "498")
             .attr("y2", "498")
             .attr("stroke", "black")
+            .attr("opacity", ".8")
             .attr("stroke-width", "4");
     }
 

@@ -25,7 +25,11 @@ function create_objects(data) {
 
     const timeLine = new Timeline(data);
     timeLine.draw();
+
     const incidents = new IncidentList(data);
     incidents.draw();
+
+    const storyPane = new Story(data);
+    storyPane.draw();
 }
 
