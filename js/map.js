@@ -76,6 +76,18 @@ class Map{
             }
         )
 
+        //tooltip
+        let mouseover = function(d){
+            console.log('mouse')
+            d3.select('.map').selectAll('.states').transition().duration(200).style('opacity', .5)
+            d3.select(this).transition().duration(200).style("opacity", 1)
+        }
+
+        let mouseleave = function(d){
+            d3.select('.map').selectAll('.states').transition().duration(200).style('opacity', 1)
+            d3.select(this).transition().duration(200)
+        }
+
         //plot map
         let that = this;
         let selection = d3.select('.map').append('svg').attr('height', 500).attr('width', 610);
@@ -85,7 +97,9 @@ class Map{
             let cap_year = 'perCap' + that.year;
             let temp = that.colorScale(Math.log(d.data[cap_year]));
             return temp;
-        })
+        }).on('mouseover', mouseover).on('mouseleave', mouseleave)
+
+
     }
 
 }
