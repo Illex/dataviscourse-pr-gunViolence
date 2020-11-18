@@ -180,6 +180,24 @@ class Story{
                 d3.select(this).attr("opacity", ".6")
             })
 
+        //src tag text
+        outline.append("text")
+            .attr("id", "srcTag")
+            .attr("x", " 35")
+            .attr("y", " 288")
+            .text("Open Source")
+            .attr("font-family", "sans-serif")
+            .attr("font-size", "14");
+
+        //archive tag text
+        outline.append("text")
+            .attr("id", "archiveTag")
+            .attr("x", " 35")
+            .attr("y", " 360")
+            .text("Open Archive")
+            .attr("font-family", "sans-serif")
+            .attr("font-size", "14");
+
         //TODO:find a way to update the url's for each button as an attribute 
     }
 }
