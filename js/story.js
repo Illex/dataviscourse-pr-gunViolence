@@ -2,6 +2,7 @@ class Story{
 
     constructor(d){
         this.data = d;
+        //TODO: tweak styling so it doesn't look like garbage
     }
 
     draw(){
@@ -138,6 +139,10 @@ class Story{
             .attr("font-family", "sans-serif")
             .attr("font-size", "11");
 
+        //hidden news story url
+        outline.append("text")
+            .attr("id", "newsUrl")
+            .text("www.post-gazette.com/local/south/2013/01/17/Man-arrested-in-New-Year-s-Eve-shooting-in-McKeesport/stories/201301170275");
         //news story
         outline.append("rect").attr("id", "srcButton")
             .attr("x", "20")
@@ -147,10 +152,9 @@ class Story{
             .attr("opacity", ".6")
             .style("fill", "steelBlue")
             .on("click", function(d){
-                //TODO: implement this
-                console.log("open src url")
-                console.log("implement this")
-                window.open("https://www.post-gazette.com/local/south/2013/01/17/Man-arrested-in-New-Year-s-Eve-shooting-in-McKeesport/stories/201301170275");
+                let url = d3.select("#newsUrl").text()
+                console.log(url)
+                window.open(url);
             })
             .on("mouseover", function(d){
                 d3.select(this).attr("opacity", "1")
@@ -160,6 +164,11 @@ class Story{
             })
 
         //gunviolence.org
+        //make a hiddent text lable containing the url?
+        outline.append("text")
+            .attr("id", "archiveUrl")
+            .text("http://www.gunviolencearchive.org/incident/461105")
+
         outline.append("rect").attr("id", "urlButton")
             .attr("x", "20")
             .attr("y", "330")
@@ -168,10 +177,9 @@ class Story{
             .attr("opacity", ".6")
             .style("fill", "steelBlue")
             .on("click", function(d){
-                //TODO: implement this
-                console.log("open url")
-                console.log("implement this")
-                window.open("http://www.gunviolencearchive.org/incident/461105");
+                //access the hidden url text label and use it to navigate to the new web page
+                 let url = d3.select("#archiveUrl").text()
+                window.open(url);
             })
             .on("mouseover", function(d){
                 d3.select(this).attr("opacity", "1")

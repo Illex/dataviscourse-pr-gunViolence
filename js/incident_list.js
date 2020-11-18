@@ -9,6 +9,8 @@ class IncidentList{
         this.incidents = [];
         let date = "2013-01";
 
+        //TODO: update on click event for the rects so that they update the story pan information box
+
         this.temp = []
         for(let i = 0; i < this.data[0].length; i++){
             //if the date for the event matches the month, push the data to the array
@@ -45,7 +47,6 @@ class IncidentList{
                 enter
                 .append("rect")
                 .attr("x", "10")
-                //.attr("y", "10")
                 .attr("y", function(d, i){
                     return i * 45 ;
                 })
