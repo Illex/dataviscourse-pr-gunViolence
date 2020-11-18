@@ -1,13 +1,31 @@
 class IncidentList{
 
     constructor(d){
+        //assign data
         this.data = d;
+        //section data into year, and month arrys and then display to screen
+        
+        //store each incident in it's respectie month
+        this.incidents = [];
+        let date = "2013-01";
 
-        //add event listener
+        this.temp = []
+        for(let i = 0; i < this.data[0].length; i++){
+            //if the date for the event matches the month, push the data to the array
+            if(this.data[0][i].date.substr(0,7) === date){
+                this.temp.push(this.data[0][i])
+            }
+            //otherwise we're done reading that month, push it to the list and start on the new month
+            else{
+                this.incidents.push(this.temp)
+                date = this.data[0][i].date.substr(0,7);
+                this.temp = [];
+            }
+        }
     }
 
     draw(){
-        document.getElementById("scroll").addEventListener("input", printValue);
+        document.getElementById("scroll").addEventListener("input", scrollBoxes);
 
         let selection = d3.select(".incident_list").append("svg").attr("id", "incident-box-container")
             .attr("width", "280") 
@@ -17,7 +35,8 @@ class IncidentList{
             //use the selection to append a group of rectangles who's y position are changed based on the slider position
 
         let eventList = d3.select("#incident-box-container").append("g").attr("id", "incident-list");
-        let rects = eventList.selectAll("rect").data(this.data[0]);
+        //let rects = eventList.selectAll("rect").data(this.data[0]);
+        let rects = eventList.selectAll("rect").data(this.incidents[0]);
 
         //create the rectangles for each event
         let that = this;
@@ -48,7 +67,8 @@ class IncidentList{
 
         //create the text labels for each rect
         eventList = d3.select("#incident-box-container").append("g").attr("id", "incident-list-text");
-        let labels = eventList.selectAll("text").data(this.data[0])
+        //let labels = eventList.selectAll("text").data(this.data[0])
+        let labels = eventList.selectAll("text").data(this.incidents[0])
         labels.join(
             enter =>
                 enter
@@ -107,7 +127,12 @@ class IncidentList{
     }
 }
 
-let printValue = function(){
+let scrollBoxes = function(){
+    //scroll scaling is done to scale the range (1 - 100) to the actual number of events.
+    //the scaler is stored in the placeholder attribute of the scroll dom object as a hacky workaround since it's not needed for a scroll bar
     let temp = document.getElementById("scroll").value
-    //console.log(temp);
+    let scrollScale = document.getElementById("scroll").placeholder;
+    console.log(scrollScale)
+    d3.select("#incident-list").attr("transform", "translate(0," + (-45 * (temp/scrollScale)) + ")");//.selectAll("rect")
+    d3.select("#incident-list-text").attr("transform", "translate(0," + (-45 * (temp/scrollScale)) + ")");
 }
