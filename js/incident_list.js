@@ -64,7 +64,7 @@ class IncidentList{
                     console.log(this.__data__)
                     d3.select("#stateData").text(this.__data__.state);
                     //TODO: fix data processing to rename city/county to municipality so it can be accessed
-                    d3.select("#municipalityData").text(this.__data__.city);
+                    d3.select("#municipalityData").text(this.__data__.municipality);
                     d3.select("#addressData").text(this.__data__.address);
                     d3.select("#dateData").text(this.__data__.date);
                     d3.select("#mortalityData").text(this.__data__.deaths + " : " + this.__data__.injuries);

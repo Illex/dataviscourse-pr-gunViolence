@@ -15,7 +15,7 @@ with open("gunViolenceData.csv", 'r') as f:
                 "id": "",
                 "date":"",
                 "state":"",
-                "city/county":"",
+                "municipality":"",
                 "address":"",
                 "deaths":"",
                 "injuries":"",
@@ -35,7 +35,7 @@ with open("gunViolenceData.csv", 'r') as f:
         temp["id"] = fields[0].strip(',')
         temp["date"] = fields[1].strip(',')
         temp["state"] = fields[2].strip(',')
-        temp["city/county"] = fields[3].strip(',')
+        temp["municipality"] = fields[3].strip(',')
         temp["address"] = fields[4].strip(',')
         temp["deaths"] = fields[5].strip(',')
         temp["injuries"] = fields[6].strip(',')
