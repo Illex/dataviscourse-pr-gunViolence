@@ -9,7 +9,7 @@ class IncidentList{
         this.incidents = [];
         let date = "2013-01";
 
-        //TODO: update on click event for the rects so that they update the story pan information box
+        //TODO: update on click event for the rects so that they update the story pane information box
 
         this.temp = []
         for(let i = 0; i < this.data[0].length; i++){
@@ -61,14 +61,21 @@ class IncidentList{
                     d3.select(this).attr("opacity", ".6")
                 })
                 .on("click", function(d){
-                    //add text label for each value in the event's object
-                    //add on click event for the text to open the event web page
+                    console.log(this.__data__)
+                    d3.select("#stateData").text(this.__data__.state);
+                    //TODO: fix data processing to rename city/county to municipality so it can be accessed
+                    d3.select("#municipalityData").text(this.__data__.city);
+                    d3.select("#addressData").text(this.__data__.address);
+                    d3.select("#dateData").text(this.__data__.date);
+                    d3.select("#mortalityData").text(this.__data__.deaths + " : " + this.__data__.injuries);
+                    d3.select("#incidentIdData").text(this.__data__.id);
+                    d3.select("#newsUrl").text(this.__data__.source);
+                    d3.select("#archiveUrl").text(this.__data__.url);
                 })
         )
 
         //create the text labels for each rect
         eventList = d3.select("#incident-box-container").append("g").attr("id", "incident-list-text");
-        //let labels = eventList.selectAll("text").data(this.data[0])
         let labels = eventList.selectAll("text").data(this.incidents[0])
         labels.join(
             enter =>

@@ -105,7 +105,7 @@ class Story{
             .attr("id", "dateData")
             .attr("x", " 10")
             .attr("y", " 160")
-            .text("2013/01/01")
+            .text("2013-01-01")
             .attr("font-family", "sans-serif")
             .attr("font-size", "11");
 
