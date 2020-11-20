@@ -37,8 +37,8 @@ class IncidentList{
             //use the selection to append a group of rectangles who's y position are changed based on the slider position
 
         let eventList = d3.select("#incident-box-container").append("g").attr("id", "incident-list");
-        //let rects = eventList.selectAll("rect").data(this.data[0]);
-        let rects = eventList.selectAll("rect").data(this.incidents[0]);
+        let rects = eventList.selectAll("rect").data(this.incidents[12]);
+        d3.select("#scroll").attr("placeholder", this.incidents[12].length);
 
         //create the rectangles for each event
         let that = this;
@@ -76,7 +76,7 @@ class IncidentList{
 
         //create the text labels for each rect
         eventList = d3.select("#incident-box-container").append("g").attr("id", "incident-list-text");
-        let labels = eventList.selectAll("text").data(this.incidents[0])
+        let labels = eventList.selectAll("text").data(this.incidents[12])
         labels.join(
             enter =>
                 enter
@@ -130,9 +130,22 @@ class IncidentList{
             .attr("stroke-width", "4");
     }
 
-    update(){
-        //TODO: fill this in
-    }
+}
+
+let storyUpdate = function(){
+    //check the timeline for each of the following
+    //fileterBy, ascending/descending, year, month
+    //then join() all the rects and text labels based on that selection combination
+    //don't forget to update the scroll scaler and secret tags
+    let filterBy = document.getElementById("dataFilter").value;
+    let sort = document.getElementById("orderSelect").value;
+    let year = document.getElementById("yearFilter").value;
+    let month = document.getElementById("monthFilter").value;
+    console.log("story update")
+    console.log(filterBy)
+    console.log(sort)
+    console.log(year)
+    console.log(month)
 }
 
 let scrollBoxes = function(){
@@ -141,6 +154,6 @@ let scrollBoxes = function(){
     let temp = document.getElementById("scroll").value
     let scrollScale = document.getElementById("scroll").placeholder;
     console.log(scrollScale)
-    d3.select("#incident-list").attr("transform", "translate(0," + (-45 * (temp/scrollScale)) + ")");//.selectAll("rect")
-    d3.select("#incident-list-text").attr("transform", "translate(0," + (-45 * (temp/scrollScale)) + ")");
+    d3.select("#incident-list").attr("transform", "translate(0,"  +(-45 * temp * (scrollScale / 100)) + ")");//.selectAll("rect")
+    d3.select("#incident-list-text").attr("transform", "translate(0," +(-45 * temp * (scrollScale / 100)) + ")");
 }

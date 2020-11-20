@@ -31,7 +31,7 @@
     -->
     <div class="timeline">
             <label>Filter by:</label>
-            <select onchange="changeData()" id="dataFilter">
+            <select onchange="changeData();storyUpdate()" id="dataFilter">
                 <option selected value="date">Date</option>
                 <option value="state">State</option>
                 <option value="municipality">Municipality</option>
@@ -39,7 +39,7 @@
                 <option value="injuries">Injuries</option>
             </select>
             <label>Sort:</label>
-            <select onchange="changeOrder()" id="orderSelect">
+            <select onchange="changeOrder();storyUpdate()" id="orderSelect">
                 <option value="ascending">Ascending</option>
                 <option value="descending">Descending</option>
             </select>
@@ -47,15 +47,15 @@
             <br>
             <br>
             <label>Year:</label>
-            <select onchange="changeYear()" id="yearFilter">
-                <option selected value="2014">2015</option>
+            <select onchange="changeYear();storyUpdate()" id="yearFilter">
+                <option selected value="2014">2014</option>
                 <option value="2015">2015</option>
                 <option value="2016">2016</option>
                 <option value="2017">2017</option>
                 <option value="2018">2018</option>
             </select>
             <label>Month:</label>
-            <select onchange="changeMonth()" id="monthFilter">
+            <select onchange="changeMonth();storyUpdate()" id="monthFilter">
                 <!--    <option selected value="All">All</option> -->
                 <option selected value="January">January</option>
                 <option value="February">February</option>

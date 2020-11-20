@@ -74,18 +74,23 @@ class Timeline{
         //set a scale for the first year recorded
         console.log("sub data")
         console.log(ratios.slice(0,12))
-        let aScale = d3.scaleLinear().domain([0, d3.max(ratios.slice(0, 12), d => d[0])]).range([0, 600]).nice()
         let pane = d3.select(".timeline").append("svg").attr("id", "timeline-pane")
             .attr("width", "650")
             .attr("height", "450")
-        let xAxis = d3.axisBottom(aScale);
         let timeAxis = d3.select("#timeline-pane").append("g")
             .attr("id" , "timelineAxis")
             .attr("transform", "translate(20,400)")
-            .call(xAxis)
+
+        let xAxis = d3.axisBottom(d3.scaleLinear().domain([0, 1200]).range([0, 600])).ticks(12);
+
+        //axis caauses and error for some reason
+//        d3.select("#timelineAxis").call(xAxis)
+
+
+        //let bScale = d3.scaleLinear().domain([0, d3.max(ratios.slice(0, 12), d => d[0])]).range([0, 400]).nice()
+
     }
 
-    //updates the timeline based on the filters
     update(){
 
     }
