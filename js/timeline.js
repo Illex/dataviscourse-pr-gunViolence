@@ -7,20 +7,7 @@ class Timeline{
 
     //performs first time setup of the timeline
     draw(){
-        //TODO: make time frame selector bar
-        //TODO: make x axis with tick numbers equal to the time frame range
-        //TODO: make a y scale that scales the line based on the ratio of selectedAttribute/gun Violence
-        //TODO: get the elements on the page
-        //
-        //~~~~~~~~~~~~ build timeline using drop down menus first, then look into building a double slider ~~~~~~~~~~
-        //double slider problem is non trivial
-        //  possibly use example here for building double slider
-        //  http://giacomoballi.com/blog/css-range-double-slider
-        //
-        //
-        //get gun violence to population rate 
 
-        //storage for the rate at each month
         let globalRate = []
         //the default date
         let date = "2013-01";
@@ -53,23 +40,49 @@ class Timeline{
         population["2018"] = 0;
 
         for(let i = 0; i < this.data[1].length; i++){
-            population["2013"] = this.data[1][i].pop2013;
-            population["2014"] = this.data[1][i].pop2014;
-            population["2015"] = this.data[1][i].pop2015;
-            population["2016"] = this.data[1][i].pop2016;
-            population["2017"] = this.data[1][i].pop2017;
-            population["2018"] = this.data[1][i].pop2018;
+            population["2014"] += parseInt(this.data[1][i].pop2014);
+            population["2015"] += parseInt(this.data[1][i].pop2015);
+            population["2016"] += parseInt(this.data[1][i].pop2016);
+            population["2017"] += parseInt(this.data[1][i].pop2017);
+            population["2018"] += parseInt(this.data[1][i].pop2018);
         }
 
-        //console.log("population")
-        //console.log(population)
+        //build an array that is the ratio of gun violence/population for each month
+        let ratios = [];
+        //2014
+        for(let i = 0; i < 12; i++){
+            ratios[i] = globalRate[i+12] / population["2014"]
+        }
+        //2015
+        for(let i = 0; i < 12; i++){
+            ratios[i+12] = globalRate[i+24] / population["2015"]
+        }
+        //2016
+        for(let i = 0; i < 12; i++){
+            ratios[i+24] = globalRate[i+36] / population["2016"]
+        }
+        //2017
+        for(let i = 0; i < 12; i++){
+            ratios[i+36] = globalRate[i+48] / population["2017"]
+        }
+        //2018 only has 3 months of data
+        for(let i = 0; i < 2; i++){
+            ratios[i+48] = globalRate[i+60] / population["2018"]
+        }
 
-        console.log(this.data)
-        //let selection = d3.select(".timeline").append("svg").attr("height", 410).attr("width", 610).attr("id", "time-line")
-        //append g for each element on the svg
-
-        //x axis goes from 0 to 63
-        //draw the line chart as a rate of "global" violence rates/deaths
+        //setup scales
+        //set a scale for the first year recorded
+        console.log("sub data")
+        console.log(ratios.slice(0,12))
+        let aScale = d3.scaleLinear().domain([0, d3.max(ratios.slice(0, 12), d => d[0])]).range([0, 600]).nice()
+        let pane = d3.select(".timeline").append("svg").attr("id", "timeline-pane")
+            .attr("width", "650")
+            .attr("height", "450")
+        let xAxis = d3.axisBottom(aScale);
+        let timeAxis = d3.select("#timeline-pane").append("g")
+            .attr("id" , "timelineAxis")
+            .attr("transform", "translate(20,400)")
+            .call(xAxis)
     }
 
     //updates the timeline based on the filters

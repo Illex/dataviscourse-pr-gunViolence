@@ -5,7 +5,7 @@ class StateData{
         for(let i = 0; i < data.length; i++){
             if(data[i]['state'] == name){
                 state = data[i];
-                console.log(name, data[i])
+                //console.log(name, data[i])
                 break;
             }
         }
@@ -78,7 +78,7 @@ class Map{
 
         //tooltip
         let mouseover = function(d){
-            console.log('mouse')
+            //console.log('mouse')
             d3.select('.map').selectAll('.states').transition().duration(200).style('opacity', .5)
             d3.select(this).transition().duration(200).style("opacity", 1)
         }
