@@ -97,8 +97,6 @@ class Map{
                     .transition().duration(200).style('opacity', 1);
                 that.updateState(null)
             }else{
-                d3.select('.map').selectAll('.states').classed('selected', false)
-                    .transition().duration(200).style('opacity', .7)
                 d3.select(this).classed('selected', true).transition().duration(200);
                 that.updateState(d3.select(this).attr('id'))
             }

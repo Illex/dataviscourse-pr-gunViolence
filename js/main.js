@@ -12,14 +12,20 @@ Promise.all(words).then(data =>
     //verify loading works
     //console.log(data);
 
-    this.state = null;
     this.activeYear = 2014;
+    this.states = new Set();
     let that = this;
+
     function updateState(state) {
         console.log(state)
-        that.state = state;
-
+        //pass in a null to clear the set
+        if(state != null){
+            that.states.add(state);
+        }else{
+            that.states = new Set();
+        }
         // TODO - update state filters
+        //by_state.addState(that.states);
 
     }
 
@@ -34,7 +40,8 @@ Promise.all(words).then(data =>
         map.drawMap(mapData)
     });
 
-    //const state = new State(data);
+    //const by_state = new State(data, this.activeYear, this.states, updateState, updateYear);
+    //by_state.drawBars();
 
     const timeLine = new Timeline(data);
     timeLine.draw();
@@ -44,6 +51,8 @@ Promise.all(words).then(data =>
 
     const storyPane = new Story(data);
     storyPane.draw();
+
+
 
 });
 
