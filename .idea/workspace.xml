@@ -5,6 +5,7 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/js/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/main.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/js/map.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/map.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/styles.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -45,7 +46,7 @@
       <option name="presentableId" value="Default" />
       <updated>1604262841972</updated>
       <workItem from="1604262843123" duration="22199000" />
-      <workItem from="1605380008680" duration="1005000" />
+      <workItem from="1605380008680" duration="4606000" />
     </task>
     <servers />
   </component>
@@ -56,6 +57,10 @@
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="429" y="188" width="597" height="490" key="find.popup" timestamp="1605988979755">
+      <screen x="0" y="25" width="1440" height="818" />
+    </state>
+    <state x="429" y="188" width="597" height="490" key="find.popup/0.25.1440.818@0.25.1440.818" timestamp="1605988979755" />
     <state x="425" y="195" key="run.anything.popup" timestamp="1604262867472">
       <screen x="0" y="23" width="1440" height="826" />
     </state>

@@ -20,14 +20,16 @@ class StateData{
 
 class Map{
 
-    constructor(data, year){
+    constructor(data, year, updateState, updateYear){
         this.year = year;
-        this.stateData = data
+        this.stateData = data;
+        this.updateState = updateState;
+        this.updateYear = updateYear;
 
         this.projection = d3.geoAlbersUsa().scale(800).translate([305, 250]);
         this.getPerCapita();
         this.colorScale = d3.scaleSequential().interpolator(d3.interpolateBlues)
-            .domain([this.ultimate_min, this.ultimate_max]);
+            .domain([1.05*this.ultimate_min, this.ultimate_max]);
 
     }
 
@@ -64,6 +66,7 @@ class Map{
     }
 
     drawMap(country) {
+        let that = this
         let geojson = topojson.feature(country, country.objects.states);
         let path = d3.geoPath(this.projection);
         let states = geojson.features.map(
@@ -79,7 +82,7 @@ class Map{
         //tooltip
         let mouseover = function(d){
             //console.log('mouse')
-            d3.select('.map').selectAll('.states').transition().duration(200).style('opacity', .5)
+            d3.select('.map').selectAll('.states').transition().duration(200).style('opacity', .7)
             d3.select(this).transition().duration(200).style("opacity", 1)
         }
 
@@ -88,8 +91,20 @@ class Map{
             d3.select(this).transition().duration(200)
         }
 
+        let click = function(d){
+            if(d3.select(this).classed('selected')){
+                d3.select('.map').selectAll('.states').classed('selected', false)
+                    .transition().duration(200).style('opacity', 1);
+                that.updateState(null)
+            }else{
+                d3.select('.map').selectAll('.states').classed('selected', false)
+                    .transition().duration(200).style('opacity', .7)
+                d3.select(this).classed('selected', true).transition().duration(200);
+                that.updateState(d3.select(this).attr('id'))
+            }
+        }
+
         //plot map
-        let that = this;
         let selection = d3.select('.map').append('svg').attr('height', 500).attr('width', 610);
         selection.selectAll("path").data(states).enter().append('path')
             .attr('d', path).attr('id', d => d.name).classed('states', true)
@@ -98,6 +113,7 @@ class Map{
             let temp = that.colorScale(Math.log(d.data[cap_year]));
             return temp;
         }).on('mouseover', mouseover).on('mouseleave', mouseleave)
+            .on('click', click)
 
 
     }

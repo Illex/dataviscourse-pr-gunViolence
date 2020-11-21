@@ -18,9 +18,15 @@
 }
 .by_state {
     grid-area: c;
+    border-color: black;
+    border-style: solid;
+    border-width: 4px;
 }
 .by_gender {
     grid-area: d;
+    border-color: black;
+    border-style: solid;
+    border-width: 4px;
 }
 
 .story {
@@ -36,7 +42,12 @@
 .boundary {
     fill: none;
     stroke: black;
-    stroke-width: .8px;
+    stroke-width: .7px;
+}
+.selected {
+    opacity: 1.2;
+    stroke: black;
+    stroke-width: 2px;
 }
 
 #slider{
