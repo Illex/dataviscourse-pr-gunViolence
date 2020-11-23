@@ -26,7 +26,14 @@ class IncidentList{
         }
     }
 
+
     draw(){
+
+        //select dropdown menu and add the update function to it's event handler
+        let that = this;
+        d3.select("#dataFilter").on("change", function(d){
+            that.storyUpdate();
+        })
         document.getElementById("scroll").addEventListener("input", scrollBoxes);
 
         let selection = d3.select(".incident_list").append("svg").attr("id", "incident-box-container")
@@ -41,7 +48,6 @@ class IncidentList{
         d3.select("#scroll").attr("placeholder", this.incidents[12].length);
 
         //create the rectangles for each event
-        let that = this;
         rects.join(
             enter =>
                 enter
@@ -130,9 +136,7 @@ class IncidentList{
             .attr("stroke-width", "4");
     }
 
-}
-
-let storyUpdate = function(){
+    storyUpdate(){
     //check the timeline for each of the following
     //fileterBy, ascending/descending, year, month
     //then join() all the rects and text labels based on that selection combination
@@ -141,12 +145,18 @@ let storyUpdate = function(){
     let sort = document.getElementById("orderSelect").value;
     let year = document.getElementById("yearFilter").value;
     let month = document.getElementById("monthFilter").value;
+    console.log("update data")
+    console.log(this.incidents)
     console.log("story update")
     console.log(filterBy)
     console.log(sort)
     console.log(year)
     console.log(month)
 }
+
+}
+
+
 
 let scrollBoxes = function(){
     //scroll scaling is done to scale the range (1 - 100) to the actual number of events.
