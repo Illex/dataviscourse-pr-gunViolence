@@ -24,7 +24,6 @@ class IncidentList{
         }
     }
 
-
     draw(){
 
         //select dropdown menu and add the update function to it's event handler
@@ -89,44 +88,6 @@ class IncidentList{
                     return d.date + " id: " + d.id;
                 })
         )
-
-        //let outline = d3.select("#incident-box-container").append("g").attr("id", "incident-box-outline");
-        //left 
-       // outline.append("line")
-        //    .attr("x1", "5")
-         //   .attr("x2", "5")
-          //  .attr("y1", "0")
-           // .attr("y2", "500")
-            //.attr("stroke", "black")
-            //.attr("opacity", ".8")
-            //.attr("stroke-width", "4");
-        //right 
-        //outline.append("line")
-            //.attr("x1", "275")
-            //.attr("x2", "275")
-            //.attr("y1", "0")
-            //.attr("y2", "500")
-            //.attr("stroke", "black")
-            //.attr("opacity", ".8")
-            //.attr("stroke-width", "4");
-        //top
-        //outline.append("line")
-            //.attr("x1", "5")
-            //.attr("x2", "275")
-            //.attr("y1", "2")
-            //.attr("y2", "2")
-            //.attr("stroke", "black")
-            //.attr("opacity", ".8")
-            //.attr("stroke-width", "4");
-        //bottom
-        //outline.append("line")
-            //.attr("x1", "5")
-            //.attr("x2", "275")
-            //.attr("y1", "498")
-            //.attr("y2", "498")
-            //.attr("stroke", "black")
-            //.attr("opacity", ".8")
-            //.attr("stroke-width", "4");
     }
 
     storyUpdate(states){
@@ -165,12 +126,62 @@ class IncidentList{
         else if(month === "November"){index += 10}
         else if(month === "December"){index += 11};
 
+        //TODO: add update transitions
         //filter out only the states that matter out of the states in the specified time range
         let newData = this.incidents[index].filter(function (d){
             return states.has(d.state);
         })
         //now sort by one of the following, alphabetical by state name, municipality name, 
             //number of deaths, number of injuries, and event date
+        function dateSort(a, b){
+            if(a.date < b.date){
+                return -1;
+            }
+            if(a.date > b.date){
+                return 1;
+            }
+            else{
+                return 0;
+            }
+        } 
+
+        function stateSort(a, b){
+            if(a.state < b.state){
+                return -1;
+            }
+            if(a.state > b.state){
+                return 1;
+            }
+            else{
+                return 0;
+            }
+        }
+
+        function municipalitySort(a, b){
+            if(a.municipality < b.municipality){
+                return -1;
+            }
+            if(a.municipality> b.municipality){
+                return 1;
+            }
+            else{
+                return 0;
+            }
+        }
+        
+        function deathSort(a, b){
+            return a.deaths - b.deaths;
+        }
+        function injurySort(a, b){
+            return a.injuries- b.injuries;
+        }
+
+        newData = newData.sort(deathSort)
+
+        //if ascending, don't reverse
+        if(sort === "descending"){
+            newData.reverse();
+        }
 
         //resize the svg to match the new data list
         d3.select("#incident-box-container")
@@ -267,14 +278,3 @@ class IncidentList{
 
 }
 
-
-
-let scrollBoxes = function(){
-    //scroll scaling is done to scale the range (1 - 100) to the actual number of events.
-    //the scaler is stored in the placeholder attribute of the scroll dom object as a hacky workaround since it's not needed for a scroll bar
-    let temp = document.getElementById("scroll").value
-    let scrollScale = document.getElementById("scroll").placeholder;
-    //console.log(scrollScale)
-    d3.select("#incident-list").attr("transform", "translate(0,"  +(-45 * temp * (scrollScale / 100)) + ")");//.selectAll("rect")
-    d3.select("#incident-list-text").attr("transform", "translate(0," +(-45 * temp * (scrollScale / 100)) + ")");
-}

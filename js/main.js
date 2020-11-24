@@ -26,7 +26,8 @@ Promise.all(words).then(data =>
         }
         // TODO - update state filters
         by_state.addState(that.states);
-
+        //update states in the incident list
+        incidents.storyUpdate(states);
     }
 
     function updateYear(year){
@@ -53,6 +54,18 @@ Promise.all(words).then(data =>
     incidents.draw();
     //add event handlers for filters
     d3.select("#dataFilter").on("change", function(d){
+        //every time this filter is changed all the following funcitons are called
+        incidents.storyUpdate(states);
+    })
+    d3.select("#orderSelect").on("change", function(d){
+        //every time this filter is changed all the following funcitons are called
+        incidents.storyUpdate(states);
+    })
+    d3.select("#yearFilter").on("change", function(d){
+        //every time this filter is changed all the following funcitons are called
+        incidents.storyUpdate(states);
+    })
+    d3.select("#monthFilter").on("change", function(d){
         //every time this filter is changed all the following funcitons are called
         incidents.storyUpdate(states);
     })
