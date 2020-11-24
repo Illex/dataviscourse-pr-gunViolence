@@ -48,6 +48,11 @@ Promise.all(words).then(data =>
 
     const incidents = new IncidentList(data);
     incidents.draw();
+    //add event handlers for filters
+    d3.select("#dataFilter").on("change", function(d){
+        //every time this filter is changed all the following funcitons are called
+        incidents.storyUpdate(states);
+    })
 
     const storyPane = new Story(data);
     storyPane.draw();

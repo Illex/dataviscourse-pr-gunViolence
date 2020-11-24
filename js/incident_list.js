@@ -9,8 +9,6 @@ class IncidentList{
         this.incidents = [];
         let date = "2013-01";
 
-        //TODO: update on click event for the rects so that they update the story pane information box
-
         this.temp = []
         for(let i = 0; i < this.data[0].length; i++){
             //if the date for the event matches the month, push the data to the array
@@ -31,9 +29,6 @@ class IncidentList{
 
         //select dropdown menu and add the update function to it's event handler
         let that = this;
-        d3.select("#dataFilter").on("change", function(d){
-            that.storyUpdate();
-        })
         document.getElementById("scroll").addEventListener("input", scrollBoxes);
 
         let selection = d3.select(".incident_list").append("svg").attr("id", "incident-box-container")
@@ -67,9 +62,8 @@ class IncidentList{
                     d3.select(this).attr("opacity", ".6")
                 })
                 .on("click", function(d){
-                    console.log(this.__data__)
+                    //console.log(this.__data__)
                     d3.select("#stateData").text(this.__data__.state);
-                    //TODO: fix data processing to rename city/county to municipality so it can be accessed
                     d3.select("#municipalityData").text(this.__data__.municipality);
                     d3.select("#addressData").text(this.__data__.address);
                     d3.select("#dateData").text(this.__data__.date);
@@ -136,22 +130,137 @@ class IncidentList{
             .attr("stroke-width", "4");
     }
 
-    storyUpdate(){
-    //check the timeline for each of the following
-    //fileterBy, ascending/descending, year, month
-    //then join() all the rects and text labels based on that selection combination
-    //don't forget to update the scroll scaler and secret tags
-    let filterBy = document.getElementById("dataFilter").value;
-    let sort = document.getElementById("orderSelect").value;
-    let year = document.getElementById("yearFilter").value;
-    let month = document.getElementById("monthFilter").value;
-    console.log("update data")
-    console.log(this.incidents)
-    console.log("story update")
-    console.log(filterBy)
-    console.log(sort)
-    console.log(year)
-    console.log(month)
+    storyUpdate(states){
+        //TODO: finish filtering data befor making new rects
+        //check the timeline for each of the following
+        //fileterBy, ascending/descending, year, month
+        //then join() all the rects and text labels based on that selection combination
+        //don't forget to update the scroll scaler and secret tags
+        //the incidents[] is an array of arrays with each index representing 1 month
+        console.log(states)
+        let filterBy = document.getElementById("dataFilter").value;
+        let sort = document.getElementById("orderSelect").value;
+        let year = document.getElementById("yearFilter").value;
+        let month = document.getElementById("monthFilter").value;
+    
+        //then check filter criteria filterBy
+        //then d3 filter that month for the states
+        //then sort in ascending or descending based on the filter criteria
+        //then bind that sorted data to the rects and text labels
+        let index = 0;
+        if(year === "2014"){index = 12}
+        else if(year === "2015"){index = 24}
+        else if(year === "2016"){index = 36}
+        else if(year === "2017"){index = 48}
+        else if(year === "2018"){index = 60};
+        //find the month index
+        if(month === "February"){index += 1}
+        else if(month === "March"){index += 2}
+        else if(month === "April"){index += 3}
+        else if(month === "May"){index += 4}
+        else if(month === "June"){index += 5}
+        else if(month === "July"){index += 6}
+        else if(month === "August"){index += 7}
+        else if(month === "September"){index += 8}
+        else if(month === "October"){index += 9}
+        else if(month === "November"){index += 10}
+        else if(month === "December"){index += 11};
+
+        //filter out only the states that matter out of the states in the specified time range
+        let newData = this.incidents[index].filter(function (d){
+            return states.has(d.state);
+        })
+        //now sort by one of the following, alphabetical by state name, municipality name, 
+            //number of deaths, number of injuries, and event date
+
+        //bind all the data and update shit
+      let rects = d3.select("#incident-list").selectAll("rect").data(newData); 
+         rects.join(
+            enter =>
+                enter
+                .append("rect")
+                .attr("x", "10")
+                .attr("y", function(d, i){
+                    return i * 45 ;
+                })
+                .attr("width", "260")
+                .attr("height", "40")
+                .attr("opacity", ".6")
+                .style("fill", "steelBlue")
+                .on("mouseover", function(d){
+                    d3.select(this).attr("opacity", "1")
+                })
+                .on("mouseout", function(d){
+                    d3.select(this).attr("opacity", ".6")
+                })
+                .on("click", function(d){
+                    //console.log(this.__data__)
+                    d3.select("#stateData").text(this.__data__.state);
+                    d3.select("#municipalityData").text(this.__data__.municipality);
+                    d3.select("#addressData").text(this.__data__.address);
+                    d3.select("#dateData").text(this.__data__.date);
+                    d3.select("#mortalityData").text(this.__data__.deaths + " : " + this.__data__.injuries);
+                    d3.select("#incidentIdData").text(this.__data__.id);
+                    d3.select("#newsUrl").text(this.__data__.source);
+                    d3.select("#archiveUrl").text(this.__data__.url);
+                }),
+             update =>
+                update
+                .attr("x", "10")
+                .attr("y", function(d, i){
+                    return i * 45 ;
+                })
+                .attr("width", "260")
+                .attr("height", "40")
+                .attr("opacity", ".6")
+                .style("fill", "steelBlue")
+                .on("mouseover", function(d){
+                    d3.select(this).attr("opacity", "1")
+                })
+                .on("mouseout", function(d){
+                    d3.select(this).attr("opacity", ".6")
+                })
+                .on("click", function(d){
+                    //console.log(this.__data__)
+                    d3.select("#stateData").text(this.__data__.state);
+                    d3.select("#municipalityData").text(this.__data__.municipality);
+                    d3.select("#addressData").text(this.__data__.address);
+                    d3.select("#dateData").text(this.__data__.date);
+                    d3.select("#mortalityData").text(this.__data__.deaths + " : " + this.__data__.injuries);
+                    d3.select("#incidentIdData").text(this.__data__.id);
+                    d3.select("#newsUrl").text(this.__data__.source);
+                    d3.select("#archiveUrl").text(this.__data__.url);
+                }),
+             exit => exit.remove()
+        );
+        //update the placeholder for scrolling purposes
+        d3.select("#scroll").attr("placeholder", newData.length);
+
+        let labels = d3.select("#incident-list-text").selectAll("text").data(newData)
+        labels.join(
+            enter =>
+                enter
+                .append("text")
+                .attr("font-family", "sans-serif")
+                .attr("font-size", "16")
+                .attr("transform", function(d, i){
+                    return "translate(20," + (i * 45 + 30) + ")";
+                })
+                .text(function(d){
+                    return d.date + " id: " + d.id;
+                }),
+            update =>
+                update
+                .attr("font-family", "sans-serif")
+                .attr("font-size", "16")
+                .attr("transform", function(d, i){
+                    return "translate(20," + (i * 45 + 30) + ")";
+                })
+                .text(function(d){
+                    return d.date + " id: " + d.id;
+                }),
+            exit => exit.remove()
+        )
 }
 
 }
@@ -163,7 +272,7 @@ let scrollBoxes = function(){
     //the scaler is stored in the placeholder attribute of the scroll dom object as a hacky workaround since it's not needed for a scroll bar
     let temp = document.getElementById("scroll").value
     let scrollScale = document.getElementById("scroll").placeholder;
-    console.log(scrollScale)
+    //console.log(scrollScale)
     d3.select("#incident-list").attr("transform", "translate(0,"  +(-45 * temp * (scrollScale / 100)) + ")");//.selectAll("rect")
     d3.select("#incident-list-text").attr("transform", "translate(0," +(-45 * temp * (scrollScale / 100)) + ")");
 }

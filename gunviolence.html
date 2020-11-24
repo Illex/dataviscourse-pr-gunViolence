@@ -39,15 +39,15 @@
                 <option value="injuries">Injuries</option>
             </select>
             <label>Sort:</label>
-            <select onchange="changeOrder();storyUpdate()" id="orderSelect">
+            <select onchange="changeOrder();" id="orderSelect">
                 <option value="ascending">Ascending</option>
-                <option value="descending">Descending</option>
+                <option selected value="descending">Descending</option>
             </select>
             <button onclick="clearHandler()">Clear Selection</button>
             <br>
             <br>
             <label>Year:</label>
-            <select onchange="changeYear();storyUpdate()" id="yearFilter">
+            <select onchange="changeYear();" id="yearFilter">
                 <option selected value="2014">2014</option>
                 <option value="2015">2015</option>
                 <option value="2016">2016</option>
@@ -55,7 +55,7 @@
                 <option value="2018">2018</option>
             </select>
             <label>Month:</label>
-            <select onchange="changeMonth();storyUpdate()" id="monthFilter">
+            <select onchange="changeMonth();" id="monthFilter">
                 <!--    <option selected value="All">All</option> -->
                 <option selected value="January">January</option>
                 <option value="February">February</option>
