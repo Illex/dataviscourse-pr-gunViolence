@@ -25,7 +25,7 @@ Promise.all(words).then(data =>
             that.states = new Set();
         }
         // TODO - update state filters
-        //by_state.addState(that.states);
+        by_state.addState(that.states);
 
     }
 
@@ -40,8 +40,11 @@ Promise.all(words).then(data =>
         map.drawMap(mapData)
     });
 
-    //const by_state = new State(data, this.activeYear, this.states, updateState, updateYear);
-    //by_state.drawBars();
+    const by_state = new State(data, this.activeYear, this.states, updateState, updateYear);
+    by_state.drawBars();
+
+    const gender = new Gender(data, this.activeYear, this.states);
+    gender.drawHist();
 
     const timeLine = new Timeline(data);
     timeLine.draw();
