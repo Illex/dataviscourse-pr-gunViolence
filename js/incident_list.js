@@ -173,10 +173,14 @@ class IncidentList{
             return a.deaths - b.deaths;
         }
         function injurySort(a, b){
-            return a.injuries- b.injuries;
+            return a.injuries - b.injuries;
         }
 
-        newData = newData.sort(deathSort)
+        if(filterBy === "deaths"){newData = newData.sort(deathSort)}
+        if(filterBy === "injuries"){newData = newData.sort(injurySort)}
+        if(filterBy === "state"){newData = newData.sort(stateSort)}
+        if(filterBy === "municipality"){newData = newData.sort(municipalitySort)}
+
 
         //if ascending, don't reverse
         if(sort === "descending"){
