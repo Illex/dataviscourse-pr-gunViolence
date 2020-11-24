@@ -12,42 +12,43 @@ class Story{
                 .attr("transform", "translate(16, 4)")
                 //.attr("transform", "translate(-10, -260)");
          let outline = d3.select("#incident-pane").append("g").attr("id", "incident-pane-outline");
+                outline.attr("transform", "translate(-10,-5)")
          //left 
-         outline.append("line")
-             .attr("x1", "5")
-             .attr("x2", "5")
-             .attr("y1", "0")
-             .attr("y2", "500")
-             .attr("stroke", "black")
-             .attr("opacity", ".8")
-             .attr("stroke-width", "4");
+//         outline.append("line")
+//             .attr("x1", "5")
+//             .attr("x2", "5")
+ //            .attr("y1", "0")
+  //           .attr("y2", "500")
+   //          .attr("stroke", "black")
+    //         .attr("opacity", ".8")
+     //        .attr("stroke-width", "4");
          //right 
-         outline.append("line")
-             .attr("x1", "290")
-             .attr("x2", "290")
-             .attr("y1", "0")
-             .attr("y2", "500")
-             .attr("stroke", "black")
-             .attr("opacity", ".8")
-             .attr("stroke-width", "4");
+      //   outline.append("line")
+       //      .attr("x1", "290")
+        //     .attr("x2", "290")
+         //    .attr("y1", "0")
+          //   .attr("y2", "500")
+           //  .attr("stroke", "black")
+            // .attr("opacity", ".8")
+             //.attr("stroke-width", "4");
          //top
-         outline.append("line")
-             .attr("x1", "5")
-             .attr("x2", "290")
-             .attr("y1", "2")
-             .attr("y2", "2")
-             .attr("stroke", "black")
-             .attr("opacity", ".8")
-             .attr("stroke-width", "4");
+//         outline.append("line")
+ //            .attr("x1", "5")
+  //           .attr("x2", "290")
+   //          .attr("y1", "2")
+    //         .attr("y2", "2")
+     //        .attr("stroke", "black")
+      //       .attr("opacity", ".8")
+       //      .attr("stroke-width", "4");
          //bottom
-         outline.append("line")
-             .attr("x1", "5")
-             .attr("x2", "290")
-             .attr("y1", "498")
-             .attr("y2", "498")
-             .attr("stroke", "black")
-             .attr("opacity", ".8")
-             .attr("stroke-width", "4");
+        // outline.append("line")
+         //    .attr("x1", "5")
+          //   .attr("x2", "290")
+           //  .attr("y1", "498")
+            // .attr("y2", "498")
+             //.attr("stroke", "black")
+             //.attr("opacity", ".8")
+             //.attr("stroke-width", "4");
 
         outline.append("text")
             .attr("id", "state")

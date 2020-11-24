@@ -35,6 +35,9 @@
 
 .story {
     grid-area: e;
+    border-color: black;
+    border-style: solid;
+    border-width: 4px;
 }
 
 .incident_list {
