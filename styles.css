@@ -1,7 +1,10 @@
+* {
+    font-family: 'Roboto', sans-serif;
+}
 .wrapper {
     display: grid;
     /*edit pixels as needed*/
-    grid-template-columns: repeat(4, 300px);
+    grid-template-columns: repeat(4, 310px);
     grid-template-rows: repeat(2, 500px);
     height: 1100px;
     width: 1300px;
@@ -21,6 +24,7 @@
     border-color: black;
     border-style: solid;
     border-width: 4px;
+    overflow: scroll;
 }
 .by_gender {
     grid-area: d;
@@ -35,6 +39,7 @@
 
 .incident_list {
     grid-area: f;
+    overflow: scroll;
 }
 .states {
     fill: none;
