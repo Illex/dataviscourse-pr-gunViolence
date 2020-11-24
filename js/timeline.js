@@ -73,7 +73,7 @@ class Timeline{
         //setup scales
         //set a scale for the first year recorded
         console.log("sub data")
-        console.log(ratios.slice(0,12))
+        //console.log(ratios.slice(0,12))
         let pane = d3.select(".timeline").append("svg").attr("id", "timeline-pane")
             .attr("width", "650")
             .attr("height", "450")
@@ -81,13 +81,42 @@ class Timeline{
             .attr("id" , "timelineAxis")
             .attr("transform", "translate(20,400)")
 
-        let xAxis = d3.axisBottom(d3.scaleLinear().domain([0, 1200]).range([0, 600])).ticks(12);
+        let tempScale = d3.scaleLinear().domain([0, 12[0]]).range([0, 600]);
+        console.log("tempScale")
+        console.log(tempScale(12))
+        let xAxis = d3.axisBottom(tempScale).ticks(12);
+        console.log("xAxis")
+        console.log(xAxis)
 
+
+        console.log("timeline group element")
+        console.log(d3.select("#timelineAxis"));
+        console.log("assigned variable timeAxis")
+        console.log(timeAxis)
         //axis caauses and error for some reason
-//        d3.select("#timelineAxis").call(xAxis)
-
+        d3.select("#timelineAxis").call(xAxis)
 
         //let bScale = d3.scaleLinear().domain([0, d3.max(ratios.slice(0, 12), d => d[0])]).range([0, 400]).nice()
+
+        //make a path for the timeline
+//        let iScale = d3.scaleLinear()
+ //           .domain([0, 12])
+  //          .range([0, 500])
+//
+ //       let yScale = d3.scaleLinear()
+  //          .domain([d3.min(ratios.slice(12,24), d => d[0]), d3.max(ratios.slice(12,24), d => d[0])])
+   //         .range([0, 500])
+//
+ //       let pathGenerator = d3.area()
+  //          .x((d,i) => iScale(i))
+   //         .y0(0)
+    //        .y1(d => yScale(d))
+//
+ //       let lineChart = d3.select("#timeline-pane").append("g").attr("id", "charPath")
+  //          .datum(ratios.slice(12,24))
+   //         .attr("d", function(d){
+    ////            return pathGenerator(d);
+      //      })
 
     }
 
