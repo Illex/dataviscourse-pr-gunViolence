@@ -81,20 +81,15 @@ class Timeline{
             .attr("id" , "timelineAxis")
             .attr("transform", "translate(20,400)")
 
-        let tempScale = d3.scaleLinear().domain([0, 12[0]]).range([0, 600]);
+        let tempScale = d3.scaleLinear().domain([0, 11]).range([0, 600]);
         console.log("tempScale")
         console.log(tempScale(12))
-        let xAxis = d3.axisBottom(tempScale).ticks(12);
-        console.log("xAxis")
-        console.log(xAxis)
+        let xAxis = d3.axisBottom(tempScale).ticks(12).tickSize("15")
 
-
-        console.log("timeline group element")
-        console.log(d3.select("#timelineAxis"));
-        console.log("assigned variable timeAxis")
-        console.log(timeAxis)
-        //axis caauses and error for some reason
-        d3.select("#timelineAxis").call(xAxis)
+        //style axis
+        let axis = d3.select("#timelineAxis").call(xAxis)
+            axis.select('.domain').attr("opacity", "0")
+            axis.selectAll("text").remove();
 
         //let bScale = d3.scaleLinear().domain([0, d3.max(ratios.slice(0, 12), d => d[0])]).range([0, 400]).nice()
 
