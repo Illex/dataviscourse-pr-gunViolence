@@ -49,13 +49,13 @@ Promise.all(words).then(data =>
     const timeLine = new Timeline(data);
     timeLine.draw();
 
-//    const incidents = new IncidentList(data);
-//    incidents.draw();
+    const incidents = new IncidentList(data);
+    incidents.draw();
     //add event handlers for filters
- //   d3.select("#dataFilter").on("change", function(d){
+    d3.select("#dataFilter").on("change", function(d){
         //every time this filter is changed all the following funcitons are called
-  //      incidents.storyUpdate(states);
-   // })
+        incidents.storyUpdate(states);
+    })
 
     const storyPane = new Story(data);
     storyPane.draw();

@@ -29,18 +29,17 @@ class IncidentList{
 
         //select dropdown menu and add the update function to it's event handler
         let that = this;
-        document.getElementById("scroll").addEventListener("input", scrollBoxes);
-
         let selection = d3.select(".incident_list").append("svg").attr("id", "incident-box-container")
-            .attr("width", "280") 
-            .attr("height", "500") 
-            .attr("transform", "translate(-10, -260)"); 
+            .attr("width", "290") 
+            //.attr("height", "500") 
+            .attr("height", this.incidents[12].length * 45) 
+            .attr("transform", "translate(0,0)"); 
             
             //use the selection to append a group of rectangles who's y position are changed based on the slider position
 
         let eventList = d3.select("#incident-box-container").append("g").attr("id", "incident-list");
         let rects = eventList.selectAll("rect").data(this.incidents[12]);
-        d3.select("#scroll").attr("placeholder", this.incidents[12].length);
+        //d3.select("#scroll").attr("placeholder", this.incidents[12].length);
 
         //create the rectangles for each event
         rects.join(
@@ -51,7 +50,7 @@ class IncidentList{
                 .attr("y", function(d, i){
                     return i * 45 ;
                 })
-                .attr("width", "260")
+                .attr("width", "280")
                 .attr("height", "40")
                 .attr("opacity", ".6")
                 .style("fill", "steelBlue")
@@ -91,43 +90,43 @@ class IncidentList{
                 })
         )
 
-        let outline = d3.select("#incident-box-container").append("g").attr("id", "incident-box-outline");
+        //let outline = d3.select("#incident-box-container").append("g").attr("id", "incident-box-outline");
         //left 
-        outline.append("line")
-            .attr("x1", "5")
-            .attr("x2", "5")
-            .attr("y1", "0")
-            .attr("y2", "500")
-            .attr("stroke", "black")
-            .attr("opacity", ".8")
-            .attr("stroke-width", "4");
+       // outline.append("line")
+        //    .attr("x1", "5")
+         //   .attr("x2", "5")
+          //  .attr("y1", "0")
+           // .attr("y2", "500")
+            //.attr("stroke", "black")
+            //.attr("opacity", ".8")
+            //.attr("stroke-width", "4");
         //right 
-        outline.append("line")
-            .attr("x1", "275")
-            .attr("x2", "275")
-            .attr("y1", "0")
-            .attr("y2", "500")
-            .attr("stroke", "black")
-            .attr("opacity", ".8")
-            .attr("stroke-width", "4");
+        //outline.append("line")
+            //.attr("x1", "275")
+            //.attr("x2", "275")
+            //.attr("y1", "0")
+            //.attr("y2", "500")
+            //.attr("stroke", "black")
+            //.attr("opacity", ".8")
+            //.attr("stroke-width", "4");
         //top
-        outline.append("line")
-            .attr("x1", "5")
-            .attr("x2", "275")
-            .attr("y1", "2")
-            .attr("y2", "2")
-            .attr("stroke", "black")
-            .attr("opacity", ".8")
-            .attr("stroke-width", "4");
+        //outline.append("line")
+            //.attr("x1", "5")
+            //.attr("x2", "275")
+            //.attr("y1", "2")
+            //.attr("y2", "2")
+            //.attr("stroke", "black")
+            //.attr("opacity", ".8")
+            //.attr("stroke-width", "4");
         //bottom
-        outline.append("line")
-            .attr("x1", "5")
-            .attr("x2", "275")
-            .attr("y1", "498")
-            .attr("y2", "498")
-            .attr("stroke", "black")
-            .attr("opacity", ".8")
-            .attr("stroke-width", "4");
+        //outline.append("line")
+            //.attr("x1", "5")
+            //.attr("x2", "275")
+            //.attr("y1", "498")
+            //.attr("y2", "498")
+            //.attr("stroke", "black")
+            //.attr("opacity", ".8")
+            //.attr("stroke-width", "4");
     }
 
     storyUpdate(states){
@@ -173,6 +172,10 @@ class IncidentList{
         //now sort by one of the following, alphabetical by state name, municipality name, 
             //number of deaths, number of injuries, and event date
 
+        //resize the svg to match the new data list
+        d3.select("#incident-box-container")
+            .attr("height", newData.length * 45) 
+
         //bind all the data and update shit
       let rects = d3.select("#incident-list").selectAll("rect").data(newData); 
          rects.join(
@@ -183,7 +186,7 @@ class IncidentList{
                 .attr("y", function(d, i){
                     return i * 45 ;
                 })
-                .attr("width", "260")
+                .attr("width", "280")
                 .attr("height", "40")
                 .attr("opacity", ".6")
                 .style("fill", "steelBlue")
@@ -194,7 +197,6 @@ class IncidentList{
                     d3.select(this).attr("opacity", ".6")
                 })
                 .on("click", function(d){
-                    //console.log(this.__data__)
                     d3.select("#stateData").text(this.__data__.state);
                     d3.select("#municipalityData").text(this.__data__.municipality);
                     d3.select("#addressData").text(this.__data__.address);
@@ -210,7 +212,7 @@ class IncidentList{
                 .attr("y", function(d, i){
                     return i * 45 ;
                 })
-                .attr("width", "260")
+                .attr("width", "280")
                 .attr("height", "40")
                 .attr("opacity", ".6")
                 .style("fill", "steelBlue")
@@ -234,7 +236,7 @@ class IncidentList{
              exit => exit.remove()
         );
         //update the placeholder for scrolling purposes
-        d3.select("#scroll").attr("placeholder", newData.length);
+        //d3.select("#scroll").attr("placeholder", newData.length);
 
         let labels = d3.select("#incident-list-text").selectAll("text").data(newData)
         labels.join(
