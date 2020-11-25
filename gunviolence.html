@@ -31,7 +31,7 @@
     -->
     <div class="timeline">
             <label>Filter by:</label>
-            <select onchange="changeData();" id="dataFilter">
+            <select id="dataFilter">
                 <option selected value="date">Date</option>
                 <option value="state">State</option>
                 <option value="municipality">Municipality</option>
@@ -39,15 +39,15 @@
                 <option value="injuries">Injuries</option>
             </select>
             <label>Sort:</label>
-            <select onchange="changeOrder();" id="orderSelect">
+            <select  id="orderSelect">
                 <option value="ascending">Ascending</option>
                 <option selected value="descending">Descending</option>
             </select>
-            <button onclick="clearHandler()">Clear Selection</button>
+            <button >Clear Selection</button>
             <br>
             <br>
             <label>Year:</label>
-            <select onchange="changeYear();" id="yearFilter">
+            <select  id="yearFilter">
                 <option selected value="2014">2014</option>
                 <option value="2015">2015</option>
                 <option value="2016">2016</option>
@@ -55,7 +55,7 @@
                 <option value="2018">2018</option>
             </select>
             <label>Month:</label>
-            <select onchange="changeMonth();" id="monthFilter">
+            <select  id="monthFilter">
                 <!--    <option selected value="All">All</option> -->
                 <option selected value="January">January</option>
                 <option value="February">February</option>

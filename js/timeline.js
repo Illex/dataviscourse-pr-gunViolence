@@ -3,6 +3,7 @@ class Timeline{
     constructor(d){
         this.data = d;
         //get min and max violence rate
+        this.ratios = [];
     }
 
     //performs first time setup of the timeline
@@ -21,14 +22,11 @@ class Timeline{
             }
             //if it's not, we're done counting events in that month
             else{
-                //console.log(this.data[0][i].date.substr(0,7))
                 globalRate.push(counter);
                 date = this.data[0][i].date.substr(0,7);
                 counter = 0;
             }
         }
-        console.log("global rate");
-        console.log(globalRate);
 
         //add up the total population for each year
         let population = []
@@ -48,26 +46,26 @@ class Timeline{
         }
 
         //build an array that is the ratio of gun violence/population for each month
-        let ratios = [];
+        //let ratios = [];
         //2014
         for(let i = 0; i < 12; i++){
-            ratios[i] = globalRate[i+12] / population["2014"]
+            this.ratios[i] = globalRate[i+12] / population["2014"]
         }
         //2015
         for(let i = 0; i < 12; i++){
-            ratios[i+12] = globalRate[i+24] / population["2015"]
+            this.ratios[i+12] = globalRate[i+24] / population["2015"]
         }
         //2016
         for(let i = 0; i < 12; i++){
-            ratios[i+24] = globalRate[i+36] / population["2016"]
+            this.ratios[i+24] = globalRate[i+36] / population["2016"]
         }
         //2017
         for(let i = 0; i < 12; i++){
-            ratios[i+36] = globalRate[i+48] / population["2017"]
+            this.ratios[i+36] = globalRate[i+48] / population["2017"]
         }
         //2018 only has 3 months of data
         for(let i = 0; i < 2; i++){
-            ratios[i+48] = globalRate[i+60] / population["2018"]
+            this.ratios[i+48] = globalRate[i+60] / population["2018"]
         }
 
         //setup scales
@@ -88,57 +86,58 @@ class Timeline{
             axis.selectAll("text").remove();
         
         //draw global path
-        let yScale = d3.scaleLinear().domain([0, d3.max(ratios, d => d)]).range([0, 400])
+        let yScale = d3.scaleLinear().domain([0, d3.max(this.ratios, d => d)]).range([600, 0])
         let ALineGenerator = d3
             .line()
             .x((d, i) => tempScale(i))
             .y(d => yScale(d))
         //TODO: fix line chart drawing
-        let ALineChart = d3.select("#timeline-pane").append("g").attr("id", "aLineChart")
+        let ALineChart = d3.select("#timeline-pane").append("g").append("path").attr("id", "countryPath")
+            .attr("transform", " translate(20, 100)")
+            .attr("fill", "none")
+            .attr("stroke-width", "2")
+            .attr("stroke", "steelBlue")
         //datum is the year 2014
-            .datum(ratios.slice(12,24))
+            .datum(this.ratios.slice(12,24))
             .attr("d", function(d){
+                return ALineGenerator(d);
+            });
+
+        }
+
+        chartUpdate(states){
+
+            //transition the ratio line for the whole country between years on update
+            console.log("ratio data")
+            console.log(this.ratios)
+            //x scale
+        let tempScale = d3.scaleLinear().domain([0, 11]).range([0, 600]);
+            //y scale
+        let yScale = d3.scaleLinear().domain([0, d3.max(this.ratios, d => d)]).range([600, 0])
+        let ALineGenerator = d3
+            .line()
+            .x((d, i) => tempScale(i))
+            .y(d => yScale(d))
+
+         let year = document.getElementById("yearFilter").value;
+          let pathData = []
+           if(year ==="2014"){pathData = this.ratios.slice(0,12)}
+            else if(year ==="2015"){pathData = this.ratios.slice(12,24)}
+            else if(year ==="2016"){pathData = this.ratios.slice(24,36)}
+            else if(year ==="2017"){pathData = this.ratios.slice(36,48)}
+            else if(year ==="2018"){pathData = this.ratios.slice(48,)};
+
+            d3.select("#countryPath")
+            .attr("transform", " translate(20, 100)")
+            .attr("fill", "none")
+            .attr("stroke-width", "2")
+            .attr("stroke", "steelBlue")
+            .datum(pathData)
+            .transition().attr("d", function(d){
                 return ALineGenerator(d);
             })
     }
+    
 
-    update(){
-
-    }
-}
-
-let button1Handler = function(){
-    //TODO: fill this in
-    console.log("implement This")
-    console.log("button1Handler");
-}
-
-let changeData = function(){
-    //TODO: fill this in
-    console.log("implement This")
-    console.log("changing data");
-}
-
-let changeOrder = function(){
-    //TODO: fill this in
-    console.log("implement This")
-    console.log("change order")
-}
-
-let clearHandler = function(){
-    //TODO: fill this in
-    console.log("implement This")
-    console.log("clear")
-}
-
-let changeYear = function(){
-    //TODO: fill this in
-    console.log("implement This")
-    console.log("changeYear")
-}
-
-let changeMonth = function(){
-    //TODO: fill this in
-    console.log("implement This")
-    console.log("changeMonth")
+    
 }
