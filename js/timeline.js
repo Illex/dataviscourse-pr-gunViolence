@@ -77,10 +77,16 @@ class Timeline{
         let timeAxis = d3.select("#timeline-pane").append("g")
             .attr("id" , "timelineAxis")
             .attr("stroke-width" , "3")
+            //.on("mouseover", function(d){
+             //   return d3.select(this).transition().duration(100).attr("opacity", "1")
+            //})
+            //.on("mouseout", function(d){
+                //return d3.select(this).transition().duration(100).attr("opacity", "0")
+            //})
             .attr("transform", "translate(20,410)")
 
         let tempScale = d3.scaleLinear().domain([0, 11]).range([0, 600]);
-        let xAxis = d3.axisBottom(tempScale).ticks(12).tickSize("10")
+        let xAxis = d3.axisBottom(tempScale).ticks(12).tickSize("100")
 
         //style axis
         let axis = d3.select("#timelineAxis").call(xAxis)
@@ -108,7 +114,7 @@ class Timeline{
                 return ALineGenerator(d);
             });
 
-       //draw 10 more paths to be updated later
+       //draw 5 more paths to be updated later
         for(let i = 0; i < 5; i++){
             let idString = "path" + i;
             let ALineChart = d3.select("#timeline-pane").append("g").append("path").attr("id", idString)
@@ -122,6 +128,32 @@ class Timeline{
             .attr("d", function(d){
                 return ALineGenerator(d);
             });
+        }
+
+        //draw legend for global rate
+        d3.select("#timeline-pane").append("g").append("text").text("USA").attr("id", "countryLegend")
+            .attr("transform", "translate(10, 24)")
+            .attr("font-family", "sans-serif")
+            .attr("font-size", "16")
+            .attr("font-weight", "bold")
+            .style("fill", "steelBlue")
+
+        //draw timeline legend 
+        for (let i = 0; i < 5; i++){
+            let that = this;
+            let idString = "label" + i;
+            //append the colored path
+            d3.select("#timeline-pane").append("g").append("text").text("state").attr("id", idString)
+                .attr("transform", function(d){
+                    return "translate(10,"+ (i * 20 + 40) +")"
+                })
+            .attr("font-family", "sans-serif")
+            .attr("font-size", "16")
+            .attr("font-weight", "bold")
+            .style("fill", function(d){
+                return that.colors[i]
+                })
+            .attr("opacity", "0")
         }
 
         }
@@ -175,6 +207,7 @@ class Timeline{
             let tempRate = [];
             for(let i = 0; i < 5; i ++){
                 let pathString = "#path" + i;
+                let labelString = "#label" + i;
 
                 if(i < this.currentStates.length){
                     //get the state data for the given state at the specific year
@@ -215,9 +248,16 @@ class Timeline{
                     })
                     .attr("opacity", "1")
                     .attr("stroke", this.colors[i])
+
+                    d3.select(labelString)
+                    .text(this.currentStates[i])
+                    .transition()
+                    .duration(200)
+                    .attr("opacity", "1")
                 }
                 else{
                     d3.select(pathString).transition().duration(200).attr("opacity", "0");
+                    d3.select(labelString).transition().duration(200).attr("opacity", "0");
                 }
             }
     }
