@@ -5,7 +5,7 @@ class Timeline{
         //get min and max violence rate
         this.ratios = [];
         this.currentStates = []; 
-
+        this.colors = ["#b32222", "#22b39b", "#7b22b3", "#b322a0", "#b37222"];
     }
 
     //performs first time setup of the timeline
@@ -76,6 +76,7 @@ class Timeline{
             .attr("height", "450")
         let timeAxis = d3.select("#timeline-pane").append("g")
             .attr("id" , "timelineAxis")
+            .attr("stroke-width" , "3")
             .attr("transform", "translate(20,410)")
 
         let tempScale = d3.scaleLinear().domain([0, 11]).range([0, 600]);
@@ -99,7 +100,7 @@ class Timeline{
         let ALineChart = d3.select("#timeline-pane").append("g").append("path").attr("id", "countryPath")
             .attr("transform", " translate(20, 50)")
             .attr("fill", "none")
-            .attr("stroke-width", "2")
+            .attr("stroke-width", "3")
             .attr("stroke", "steelBlue")
         //datum is the year 2014
             .datum(this.ratios.slice(12,24))
@@ -108,12 +109,12 @@ class Timeline{
             });
 
        //draw 10 more paths to be updated later
-        for(let i = 0; i < 10; i++){
+        for(let i = 0; i < 5; i++){
             let idString = "path" + i;
             let ALineChart = d3.select("#timeline-pane").append("g").append("path").attr("id", idString)
             .attr("transform", " translate(20, 50)")
             .attr("fill", "none")
-            .attr("stroke-width", "2")
+            .attr("stroke-width", "3")
             .attr("stroke", "steelBlue")
             .attr("opacity", "0")
             //datum is the year 2014
@@ -172,7 +173,7 @@ class Timeline{
 
             //select the path at i and update it
             let tempRate = [];
-            for(let i = 0; i < 10; i ++){
+            for(let i = 0; i < 5; i ++){
                 let pathString = "#path" + i;
 
                 if(i < this.currentStates.length){
@@ -212,14 +213,12 @@ class Timeline{
                     .transition().attr("d", function(d){
                         return ALineGenerator(d);
                     })
-                    .attr("opacity", "1");
+                    .attr("opacity", "1")
+                    .attr("stroke", this.colors[i])
                 }
                 else{
                     d3.select(pathString).transition().duration(200).attr("opacity", "0");
                 }
-
-                
-
             }
     }
     
