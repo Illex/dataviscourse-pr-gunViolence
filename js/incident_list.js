@@ -4,6 +4,8 @@ class IncidentList{
         //assign data
         this.data = d;
         //section data into year, and month arrys and then display to screen
+
+        this.colors = ["#b32222", "#22b39b", "#7b22b3", "#b322a0", "#b37222"];
         
         //store each incident in it's respectie month
         this.incidents = [];
@@ -96,6 +98,7 @@ class IncidentList{
         let sort = document.getElementById("orderSelect").value;
         let year = document.getElementById("yearFilter").value;
         let month = document.getElementById("monthFilter").value;
+        let that = this;
     
         //then check filter criteria filterBy
         //then d3 filter that month for the states
@@ -198,7 +201,12 @@ class IncidentList{
                 .attr("width", "280")
                 .attr("height", "40")
                 .attr("opacity", ".6")
-                .style("fill", "steelBlue")
+                //.style("fill", "steelBlue")
+                .style("fill", function(d){
+                    //return the proper color based on the states
+                    let st = Array.from(states).indexOf(this.__data__.state)
+                    return that.colors[st];
+                })
                 .on("mouseover", function(d){
                     d3.select(this).transition().duration(100).attr("opacity", "1")
                 })
@@ -224,7 +232,13 @@ class IncidentList{
                 .attr("width", "280")
                 .attr("height", "40")
                 .attr("opacity", ".6")
-                .style("fill", "steelBlue")
+                //.style("fill", "steelBlue")
+                .style("fill", function(d){
+                    //return the proper color based on the states
+                    let st = Array.from(states).indexOf(this.__data__.state)
+                    //console.log(that.colors[st])
+                    return that.colors[st];
+                })
                 .on("mouseover", function(d){
                     d3.select(this).transition().duration(100).attr("opacity", "1")
                     d3.select(this).attr("opacity", "1")

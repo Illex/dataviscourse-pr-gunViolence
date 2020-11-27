@@ -4,6 +4,8 @@ class Timeline{
         this.data = d;
         //get min and max violence rate
         this.ratios = [];
+        this.currentStates = []; 
+        this.colors = ["#b32222", "#22b39b", "#7b22b3", "#b322a0", "#b37222"];
     }
 
     //performs first time setup of the timeline
@@ -46,7 +48,6 @@ class Timeline{
         }
 
         //build an array that is the ratio of gun violence/population for each month
-        //let ratios = [];
         //2014
         for(let i = 0; i < 12; i++){
             this.ratios[i] = globalRate[i+12] / population["2014"]
@@ -75,10 +76,11 @@ class Timeline{
             .attr("height", "450")
         let timeAxis = d3.select("#timeline-pane").append("g")
             .attr("id" , "timelineAxis")
-            .attr("transform", "translate(20,400)")
+            .attr("stroke-width" , "3")
+            .attr("transform", "translate(20,410)")
 
         let tempScale = d3.scaleLinear().domain([0, 11]).range([0, 600]);
-        let xAxis = d3.axisBottom(tempScale).ticks(12).tickSize("15")
+        let xAxis = d3.axisBottom(tempScale).ticks(12).tickSize("10")
 
         //style axis
         let axis = d3.select("#timelineAxis").call(xAxis)
@@ -86,16 +88,19 @@ class Timeline{
             axis.selectAll("text").remove();
         
         //draw global path
-        let yScale = d3.scaleLinear().domain([0, d3.max(this.ratios, d => d)]).range([600, 0])
+        //let yScale = d3.scaleLinear().domain([0, d3.max(this.ratios, d => d)]).range([400, 0])
+        let yScale = d3.scaleLinear().domain([0, 0.00004]).range([400, 0])
+        //console.log("max path")
+        //console.log(d3.max(this.ratios, d => d))
         let ALineGenerator = d3
             .line()
             .x((d, i) => tempScale(i))
             .y(d => yScale(d))
         //TODO: fix line chart drawing
         let ALineChart = d3.select("#timeline-pane").append("g").append("path").attr("id", "countryPath")
-            .attr("transform", " translate(20, 100)")
+            .attr("transform", " translate(20, 50)")
             .attr("fill", "none")
-            .attr("stroke-width", "2")
+            .attr("stroke-width", "3")
             .attr("stroke", "steelBlue")
         //datum is the year 2014
             .datum(this.ratios.slice(12,24))
@@ -103,17 +108,43 @@ class Timeline{
                 return ALineGenerator(d);
             });
 
+       //draw 10 more paths to be updated later
+        for(let i = 0; i < 5; i++){
+            let idString = "path" + i;
+            let ALineChart = d3.select("#timeline-pane").append("g").append("path").attr("id", idString)
+            .attr("transform", " translate(20, 50)")
+            .attr("fill", "none")
+            .attr("stroke-width", "3")
+            .attr("stroke", "steelBlue")
+            .attr("opacity", "0")
+            //datum is the year 2014
+            .datum(this.ratios.slice(12,24))
+            .attr("d", function(d){
+                return ALineGenerator(d);
+            });
         }
 
-        chartUpdate(states){
+        }
+
+        chartUpdate(newStates){
+
+            //update the class' states model
+            if(typeof(newStates) != "undefined"){
+                this.currentStates = Array.from(newStates);
+                console.log(this.currentStates)
+            }
+            else{
+                console.log("there are no states")
+            }
+
+            console.log("data")
+            console.log(this.data[2])
 
             //transition the ratio line for the whole country between years on update
-            console.log("ratio data")
-            console.log(this.ratios)
             //x scale
         let tempScale = d3.scaleLinear().domain([0, 11]).range([0, 600]);
             //y scale
-        let yScale = d3.scaleLinear().domain([0, d3.max(this.ratios, d => d)]).range([600, 0])
+        let yScale = d3.scaleLinear().domain([0, 0.00004]).range([400, 0])
         let ALineGenerator = d3
             .line()
             .x((d, i) => tempScale(i))
@@ -127,15 +158,68 @@ class Timeline{
             else if(year ==="2017"){pathData = this.ratios.slice(36,48)}
             else if(year ==="2018"){pathData = this.ratios.slice(48,)};
 
-            d3.select("#countryPath")
-            .attr("transform", " translate(20, 100)")
-            .attr("fill", "none")
-            .attr("stroke-width", "2")
-            .attr("stroke", "steelBlue")
+            //draw a new path for the country
+             d3.select("#countryPath")
             .datum(pathData)
             .transition().attr("d", function(d){
                 return ALineGenerator(d);
             })
+
+            //for state in states
+            //  loop through the that state's yearly data
+            //  divide it by the state's population
+            console.log("all Data")
+            console.log(this.data)
+
+            //select the path at i and update it
+            let tempRate = [];
+            for(let i = 0; i < 5; i ++){
+                let pathString = "#path" + i;
+
+                if(i < this.currentStates.length){
+                    //get the state data for the given state at the specific year
+                    console.log("current state at 2014 population")
+                    let tempState = this.data[2].filter(d => d.state === this.currentStates[i])
+                    console.log(tempState[0].pop2014)
+                    let stateIncidents = this.data[0].filter(d => d.state === this.currentStates[i]).filter(d => d.date.slice(0,4) === year);
+                    console.log("state Incidents")
+                    console.log(stateIncidents)
+
+                    //count the incidents for each month
+                    let incidentCount = [0,0,0,0,0,0,0,0,0,0,0,0];
+                    for(let j = 0; j < stateIncidents.length; j++){
+                        //the incident's month - 1 is the index
+                        incidentCount[parseInt(stateIncidents[j].date.slice(5,7)) - 1] += 1
+                    }
+
+                    //divide by the yearly population to get the rate data
+                    for(let j = 0; j < incidentCount.length; j++){
+                        //TODO: change this to pick year dynamically
+                        let pop = 1;
+                        if(year === "2014"){pop = tempState[0].pop2014}
+                        else if(year === "2015"){pop = tempState[0].pop2015}
+                        else if(year === "2016"){pop = tempState[0].pop2016}
+                        else if(year === "2017"){pop = tempState[0].pop2017}
+                        else if(year === "2018"){pop = tempState[0].pop2018}
+                        
+                        incidentCount[j] = incidentCount[j] / pop; 
+                    }
+                    //now incidentCount at each month has the ratio of gun volence per capita
+                    
+                    console.log("ratio's for the selected state")
+                    console.log(incidentCount)
+                    d3.select(pathString)
+                    .datum(incidentCount)
+                    .transition().attr("d", function(d){
+                        return ALineGenerator(d);
+                    })
+                    .attr("opacity", "1")
+                    .attr("stroke", this.colors[i])
+                }
+                else{
+                    d3.select(pathString).transition().duration(200).attr("opacity", "0");
+                }
+            }
     }
     
 
