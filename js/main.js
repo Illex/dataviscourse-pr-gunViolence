@@ -18,13 +18,13 @@ Promise.all(words).then(data =>
     let that = this;
 
     function updateState(state) {
-        console.log(state)
         //pass in a null to clear the set
         if(state != null){
             that.states.add(state);
         }else{
             that.states = new Set();
         }
+        console.log(that.states)
         // TODO - update state filters
         by_state.addState(that.states);
         //update states in the incident list

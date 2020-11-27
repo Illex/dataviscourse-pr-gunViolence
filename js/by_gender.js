@@ -22,8 +22,7 @@ class Gender{
     drawHist() {
         let that = this;
         let svg = d3.select('.by_gender').append('svg').attr('height', this.height)
-            .attr('width', this.width).append('g').attr('transform', 'translate(5,5)')
-        svg.append("g").attr("transform", "translate(0," + this.height + ")")
+            .attr('width', this.width).append('g')
 
         let maxes = [];
         for(let s in this.dist[this.year]){
@@ -62,5 +61,35 @@ class Gender{
             Tooltip
                 .style("opacity", 0)
         }
+        console.log(maxes)
+
+        let node = svg.selectAll("circle")
+            .data(maxes)
+            .enter()
+            .append("circle")
+            .attr("class", "node")
+            .attr("r", d => size(+d.deaths))
+            .attr("cx", that.width / 2)
+            .attr("cy", that.height / 2)
+            .style("fill", d => colorScale(d => +d.deaths))
+            .style("fill-opacity", 0.8)
+            .attr("stroke", "black")
+            .style("stroke-width", 1)
+            .on("mouseover", mouseover)
+            .on("mouseleave", mouseleave)
+
+        /*let simulation = d3.forceSimulation()
+            .force("center", d3.forceCenter().x(that.width / 2).y(that.height / 2))
+            .force("charge", d3.forceManyBody().strength(0.5))
+            .force("collide", d3.forceCollide().strength(.01).radius(30).iterations(1))
+
+        this.simulation
+            .nodes(maxes)
+            .on("tick", function(d){
+                node.attr("cx", function(d){ return d.x; })
+                    .attr("cy", function(d){ return d.y; })
+            });
+
+         */
     }
 }

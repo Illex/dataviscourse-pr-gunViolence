@@ -29,7 +29,9 @@ class State{
 
     addState(states){
         this.states = states;
-        this.data = this.og_data.filter(d => states.has(d.state))
+
+        let that = this;
+        this.data = this.og_data.filter(d => that.states.has(d.state))
         if(this.data.length === 0){
             this.data = this.og_data;
         }
@@ -51,7 +53,6 @@ class State{
             .domain([0, d3.max(that.data, d => d['injuries'+that.year])]).range([that.barWidth, 5])).ticks(4));
         a = a.append('g').attr('id', 'aBarChart').attr('transform', 'translate(140, 3)')
         let barsa = a.selectAll('rect').data(this.data);
-        console.log(barsa)
         let new_barsa = barsa.enter().append('rect')
             .attr('width', (d, i) => that.aScale(d['injuries'+that.year])).attr('height', 22)
             .attr('x', 0).attr('y', (d,i) => i * 24)
@@ -67,12 +68,27 @@ class State{
             .attr('width', (d, i) => that.bScale(d['deaths'+that.year])).attr('height', 22)
             .attr('x', 0).attr('y', (d,i) => i * 24).style('fill', 'grey');
         barsa.exit().remove();
-        new_barsa.merge(barsa);
+        new_barsb.merge(barsb);
 
     }
 
     updateBars(){
+        console.log(this.data.length)
+        let that = this
+        let barsa = d3.select('#aBarChart').selectAll('rect').data(that.data);
+        let new_barsa = barsa.enter().append('rect')
+            .attr('width', (d, i) => that.aScale(d['injuries'+that.year])).attr('height', 22)
+            .attr('x', 0).attr('y', (d,i) => i * 24)
+            .attr('transform', 'scale(-1,1)').style('fill', 'indigo')
+        barsa.exit().remove();
+        new_barsa.merge(barsa);
 
+        let barsb = d3.select('#bBarChart').selectAll('rect').data(that.data);
+        let new_barsb = barsb.enter().append('rect')
+            .attr('width', (d, i) => that.bScale(d['deaths'+that.year])).attr('height', 22)
+            .attr('x', 0).attr('y', (d,i) => i * 24).style('fill', 'grey')
+        barsb.exit().remove();
+        new_barsb.merge(barsb);
     }
 
 
