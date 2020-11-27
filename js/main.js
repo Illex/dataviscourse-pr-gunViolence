@@ -17,7 +17,7 @@ Promise.all(words).then(data =>
     let that = this;
 
     function updateState(state) {
-        console.log(state)
+       // console.log(state)
         //pass in a null to clear the set
         if(state != null){
             that.states.add(state);
@@ -28,11 +28,11 @@ Promise.all(words).then(data =>
         by_state.addState(that.states);
         //update states in the incident list
         incidents.storyUpdate(states);
-        timeLine.chartUpdate(states);
+        timeLine.chartUpdate(states, data);
     }
 
     function updateYear(year){
-        console.log(year)
+      //  console.log(year)
         that.activeYear = year;
     }
 
