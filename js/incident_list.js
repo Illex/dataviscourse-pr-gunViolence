@@ -54,10 +54,11 @@ class IncidentList{
                 .attr("opacity", ".6")
                 .style("fill", "steelBlue")
                 .on("mouseover", function(d){
-                    d3.select(this).attr("opacity", "1")
+                    d3.select(this).transition().duration(100).attr("opacity", "1")
+
                 })
                 .on("mouseout", function(d){
-                    d3.select(this).attr("opacity", ".6")
+                    d3.select(this).transition().duration(100).attr("opacity", ".6")
                 })
                 .on("click", function(d){
                     //console.log(this.__data__)
@@ -91,13 +92,6 @@ class IncidentList{
     }
 
     storyUpdate(states){
-        //TODO: finish filtering data befor making new rects
-        //check the timeline for each of the following
-        //fileterBy, ascending/descending, year, month
-        //then join() all the rects and text labels based on that selection combination
-        //don't forget to update the scroll scaler and secret tags
-        //the incidents[] is an array of arrays with each index representing 1 month
-        console.log(states)
         let filterBy = document.getElementById("dataFilter").value;
         let sort = document.getElementById("orderSelect").value;
         let year = document.getElementById("yearFilter").value;
@@ -206,10 +200,10 @@ class IncidentList{
                 .attr("opacity", ".6")
                 .style("fill", "steelBlue")
                 .on("mouseover", function(d){
-                    d3.select(this).attr("opacity", "1")
+                    d3.select(this).transition().duration(100).attr("opacity", "1")
                 })
                 .on("mouseout", function(d){
-                    d3.select(this).attr("opacity", ".6")
+                    d3.select(this).transition().duration(100).attr("opacity", ".6")
                 })
                 .on("click", function(d){
                     d3.select("#stateData").text(this.__data__.state);
@@ -232,10 +226,11 @@ class IncidentList{
                 .attr("opacity", ".6")
                 .style("fill", "steelBlue")
                 .on("mouseover", function(d){
+                    d3.select(this).transition().duration(100).attr("opacity", "1")
                     d3.select(this).attr("opacity", "1")
                 })
                 .on("mouseout", function(d){
-                    d3.select(this).attr("opacity", ".6")
+                    d3.select(this).transition().duration(100).attr("opacity", ".6")
                 })
                 .on("click", function(d){
                     //console.log(this.__data__)

@@ -122,10 +122,10 @@ class Story{
                 window.open(url);
             })
             .on("mouseover", function(d){
-                d3.select(this).attr("opacity", "1")
+                d3.select(this).transition().duration(100).attr("opacity", "1")
             })
             .on("mouseout", function(d){
-                d3.select(this).attr("opacity", ".6")
+                d3.select(this).transition().duration(100).attr("opacity", ".6")
             })
 
         //gunviolence.org
