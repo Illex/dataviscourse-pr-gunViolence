@@ -1,7 +1,6 @@
 class State{
 
     constructor(data, year, states, updateState, updateYear) {
-        console.log("By State")
         this.og_data = data[2];
         this.data = data[2];
         this.updateState = updateState;
@@ -49,6 +48,30 @@ class State{
 
     drawBars(){
         let that = this;
+
+        //tooltip
+        let mouseover = function(d){
+            tooltip.style('opacity', 1)
+        }
+
+        let mousemove = function(d){
+            tooltip.style('opacity', 1)
+            tooltip.html('<p><b>'+d.state+'</b></p>' +
+                '<p>Deaths: '+ d['deaths'+that.year] +'</p>' +
+                '<p>Injuries: '+ d['injuries'+that.year] +'</p>')
+                .style("left", (d3.event.pageX+5) + "px")
+                .style("top", (d3.event.pageY) + "px");
+        }
+
+        let mouseleave = function(d){
+            tooltip.transition().duration(200).style("opacity", 0)
+        }
+
+        let aLabel = d3.select("#aBlock").append('text').text('Injuries')
+            .attr('transform', 'translate(90,40)')
+        let bLabel = d3.select("#bBlock").append('text').text('Deaths')
+            .attr('transform', 'translate(5,40)')
+
         let a = d3.select( "#aBarChart-axis").attr("transform", "translate(0,70)").call(d3.axisTop(d3.scaleLinear()
             .domain([0, d3.max(that.data, d => d['injuries'+that.year])]).range([that.barWidth, 5])).ticks(4));
         a = a.append('g').attr('id', 'aBarChart').attr('transform', 'translate(140, 3)')
@@ -56,7 +79,8 @@ class State{
         let new_barsa = barsa.enter().append('rect')
             .attr('width', (d, i) => that.aScale(d['injuries'+that.year])).attr('height', 22)
             .attr('x', 0).attr('y', (d,i) => i * 24)
-            .attr('transform', 'scale(-1,1)').style('fill', 'indigo');
+            .attr('transform', 'scale(-1,1)').style('fill', '#7B22B3')
+            .on('mouseover', mouseover).on('mousemove', mousemove).on('mouseleave', mouseleave);
         barsa.exit().remove();
         new_barsa.merge(barsa);
 
@@ -66,29 +90,67 @@ class State{
         let barsb = b.selectAll('rect').data(this.data);
         let new_barsb = barsb.enter().append('rect')
             .attr('width', (d, i) => that.bScale(d['deaths'+that.year])).attr('height', 22)
-            .attr('x', 0).attr('y', (d,i) => i * 24).style('fill', 'grey');
+            .attr('x', 0).attr('y', (d,i) => i * 24).style('fill', '#B37222')
+            .on('mouseover', mouseover).on('mousemove', mousemove).on('mouseleave', mouseleave);
         barsa.exit().remove();
         new_barsb.merge(barsb);
+
+        let tooltip = d3.select('.by_state').append('div').style("opacity", 0)
+            .attr("class", "tooltip")
+            .style("background-color", "white")
+            .style("border", "solid")
+            .style("border-width", "1px")
+            .style("border-radius", "3px")
+            .style("padding", "3px")
+            .style('font', '10px sans-serif')
+            .style('position', 'absolute')
 
     }
 
     updateBars(){
-        console.log(this.data.length)
+
         let that = this
+        let mouseover = function(d){
+            tooltip.style('opacity', 1)
+        }
+
+        let mousemove = function(d){
+            tooltip.style('opacity', 1)
+            tooltip.html('<p><b>'+d.state+'</b></p>' +
+                '<p>Deaths: '+ d['deaths'+that.year] +'</p>' +
+                '<p>Injuries: '+ d['injuries'+that.year] +'</p>')
+                .style("left", (d3.event.pageX+5) + "px")
+                .style("top", (d3.event.pageY) + "px");
+        }
+
+        let mouseleave = function(d){
+            tooltip.transition().duration(200).style("opacity", 0)
+        }
         let barsa = d3.select('#aBarChart').selectAll('rect').data(that.data);
         let new_barsa = barsa.enter().append('rect')
             .attr('width', (d, i) => that.aScale(d['injuries'+that.year])).attr('height', 22)
             .attr('x', 0).attr('y', (d,i) => i * 24)
-            .attr('transform', 'scale(-1,1)').style('fill', 'indigo')
+            .attr('transform', 'scale(-1,1)').style('fill', '#7B22B3')
+            .on('mouseover', mouseover).on('mousemove', mousemove).on('mouseleave', mouseleave);
         barsa.exit().remove();
         new_barsa.merge(barsa);
 
         let barsb = d3.select('#bBarChart').selectAll('rect').data(that.data);
         let new_barsb = barsb.enter().append('rect')
             .attr('width', (d, i) => that.bScale(d['deaths'+that.year])).attr('height', 22)
-            .attr('x', 0).attr('y', (d,i) => i * 24).style('fill', 'grey')
+            .attr('x', 0).attr('y', (d,i) => i * 24).style('fill', '#B37222')
+            .on('mouseover', mouseover).on('mousemove', mousemove).on('mouseleave', mouseleave);
         barsb.exit().remove();
         new_barsb.merge(barsb);
+        let tooltip = d3.select('.by_state').append('div').style("opacity", 0)
+            .attr("class", "tooltip")
+            .style("background-color", "white")
+            .style("border", "solid")
+            .style("border-width", "1px")
+            .style("border-radius", "3px")
+            .style("padding", "3px")
+            .style('font', '10px sans-serif')
+            .style('position', 'absolute')
     }
 
 
