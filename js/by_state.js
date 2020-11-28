@@ -1,7 +1,6 @@
 class State{
 
     constructor(data, year, states, updateState, updateYear) {
-        console.log("By State")
         this.og_data = data[2];
         this.data = data[2];
         this.updateState = updateState;
@@ -69,6 +68,16 @@ class State{
             .attr('x', 0).attr('y', (d,i) => i * 24).style('fill', 'grey');
         barsa.exit().remove();
         new_barsb.merge(barsb);
+
+        let tooltip = d3.select('.by_state').append('div').style("opacity", 0)
+            .attr("class", "tooltip")
+            .style("background-color", "white")
+            .style("border", "solid")
+            .style("border-width", "1px")
+            .style("border-radius", "3px")
+            .style("padding", "3px")
+            .style('font', '10px sans-serif')
+            .style('position', 'absolute')
 
     }
 

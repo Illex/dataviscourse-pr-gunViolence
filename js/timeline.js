@@ -131,14 +131,14 @@ class Timeline{
             //update the class' states model
             if(typeof(newStates) != "undefined"){
                 this.currentStates = Array.from(newStates);
-                console.log(this.currentStates)
+                //console.log(this.currentStates)
             }
             else{
                 console.log("there are no states")
             }
 
             console.log("data")
-            console.log(this.data[2])
+            //console.log(this.data[2])
 
             //transition the ratio line for the whole country between years on update
             //x scale
@@ -169,7 +169,7 @@ class Timeline{
             //  loop through the that state's yearly data
             //  divide it by the state's population
             console.log("all Data")
-            console.log(this.data)
+            //console.log(this.data)
 
             //select the path at i and update it
             let tempRate = [];
@@ -180,10 +180,10 @@ class Timeline{
                     //get the state data for the given state at the specific year
                     console.log("current state at 2014 population")
                     let tempState = this.data[2].filter(d => d.state === this.currentStates[i])
-                    console.log(tempState[0].pop2014)
+                    //console.log(tempState[0].pop2014)
                     let stateIncidents = this.data[0].filter(d => d.state === this.currentStates[i]).filter(d => d.date.slice(0,4) === year);
                     console.log("state Incidents")
-                    console.log(stateIncidents)
+                    //console.log(stateIncidents)
 
                     //count the incidents for each month
                     let incidentCount = [0,0,0,0,0,0,0,0,0,0,0,0];
@@ -207,7 +207,7 @@ class Timeline{
                     //now incidentCount at each month has the ratio of gun volence per capita
                     
                     console.log("ratio's for the selected state")
-                    console.log(incidentCount)
+                    //console.log(incidentCount)
                     d3.select(pathString)
                     .datum(incidentCount)
                     .transition().attr("d", function(d){
