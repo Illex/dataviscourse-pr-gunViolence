@@ -155,7 +155,23 @@ class Timeline{
             .attr("opacity", "0")
         }
 
+        //TODO: draw invisable mouseover rects that select and show the rate and the month
+        for(let i = 0; i < 12; i++){
+            d3.select("#timeline-pane").append("g").append("rect").attr("id", "rect" + i)
+            .attr("x", i * 54)
+            .attr("y", "10")
+            .attr("width", 650/12)
+            .attr("height", 450)
+            .attr("opacity", "0")
+            .style("fill", "green")
+                .on("mouseover", function(d){
+                    d3.select(this).transition().duration(100).attr("opacity", ".5")
+                })
+                .on("mouseout", function(d){
+                    d3.select(this).transition().duration(100).attr("opacity", "0")
+                })
         }
+    }
 
         chartUpdate(newStates){
 

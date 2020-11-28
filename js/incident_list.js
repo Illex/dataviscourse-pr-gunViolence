@@ -63,7 +63,6 @@ class IncidentList{
                     d3.select(this).transition().duration(100).attr("opacity", ".6")
                 })
                 .on("click", function(d){
-                    //console.log(this.__data__)
                     d3.select("#stateData").text(this.__data__.state);
                     d3.select("#municipalityData").text(this.__data__.municipality);
                     d3.select("#addressData").text(this.__data__.address);
@@ -88,7 +87,9 @@ class IncidentList{
                     return "translate(20," + (i * 45 + 30) + ")";
                 })
                 .text(function(d){
-                    return d.date + " id: " + d.id;
+                    
+                    let temp = this.__data__.state
+                    return d.date + " : " + temp;
                 })
         )
     }
@@ -236,7 +237,6 @@ class IncidentList{
                 .style("fill", function(d){
                     //return the proper color based on the states
                     let st = Array.from(states).indexOf(this.__data__.state)
-                    //console.log(that.colors[st])
                     return that.colors[st];
                 })
                 .on("mouseover", function(d){
@@ -247,7 +247,6 @@ class IncidentList{
                     d3.select(this).transition().duration(100).attr("opacity", ".6")
                 })
                 .on("click", function(d){
-                    //console.log(this.__data__)
                     d3.select("#stateData").text(this.__data__.state);
                     d3.select("#municipalityData").text(this.__data__.municipality);
                     d3.select("#addressData").text(this.__data__.address);
@@ -273,7 +272,13 @@ class IncidentList{
                     return "translate(20," + (i * 45 + 30) + ")";
                 })
                 .text(function(d){
-                    return d.date + " id: " + d.id;
+                    let temp = "" 
+                    if(filterBy === "date"){temp = d.state}
+                    else if(filterBy === "state"){temp = d.state}
+                    else if(filterBy === "municipality"){temp = d.municipality}
+                    else if(filterBy === "deaths"){temp = d.deaths + " Deaths"}
+                    else if(filterBy === "injuries"){temp = d.injuries + " Injuries"}
+                    return d.date + " : " + temp;
                 }),
             update =>
                 update
@@ -283,7 +288,13 @@ class IncidentList{
                     return "translate(20," + (i * 45 + 30) + ")";
                 })
                 .text(function(d){
-                    return d.date + " id: " + d.id;
+                    let temp = "" 
+                    if(filterBy === "date"){temp = d.state}
+                    else if(filterBy === "state"){temp = d.state}
+                    else if(filterBy === "municipality"){temp = d.municipality}
+                    else if(filterBy === "deaths"){temp = + d.deaths + " Deaths"}
+                    else if(filterBy === "injuries"){temp = d.injuries + " Injuries"}
+                    return d.date + " : " + temp;
                 }),
             exit => exit.remove()
         )

@@ -24,7 +24,7 @@ Promise.all(words).then(data =>
         }else{
             that.states = new Set();
         }
-        console.log(that.states)
+        //console.log(that.states)
         // TODO - update state filters
         by_state.addState(that.states);
         //update states in the incident list

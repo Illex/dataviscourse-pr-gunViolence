@@ -87,7 +87,7 @@ class Map{
 
         //tooltip
         let mouseover = function(d){
-            console.log(d)
+            //console.log(d)
             //console.log('mouse')
             d3.select('.map').selectAll('.states').transition().duration(200).style('opacity', .7)
             tooltip.style('opacity', 1)
@@ -95,7 +95,7 @@ class Map{
         }
 
         let mousemove = function(d){
-            console.log(d.data)
+            //console.log(d.data)
             tooltip.style('opacity', 1)
             tooltip.html('<p><b>'+d.name+'</b></p>' +
                 '<p>Population: '+ d.data['pop'+that.year] +'</p>' +
