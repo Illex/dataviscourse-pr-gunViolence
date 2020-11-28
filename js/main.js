@@ -18,6 +18,13 @@ Promise.all(words).then(data =>
     let that = this;
 
     function updateState(state) {
+<<<<<<< HEAD
+=======
+//<<<<<<< HEAD
+//=======
+       // console.log(state)
+//>>>>>>> 9c00f38d935db76d50e8152847e15b29b19e1dbf
+>>>>>>> 8bf5b776ef42491db420b129a81b5d5993ff78d9
         //pass in a null to clear the set
         if(state != null){
             that.states.add(state);
