@@ -6,6 +6,7 @@ class Timeline{
         this.ratios = [];
         this.currentStates = []; 
         this.colors = ["#b32222", "#22b39b", "#7b22b3", "#b322a0", "#b37222"];
+        //TODO:append rects to the timeline that allow for higlighting of specific information
     }
 
     //performs first time setup of the timeline
@@ -122,7 +123,7 @@ class Timeline{
 
         //draw chart label
         d3.select("#timeline-pane").append("g").append("text").text("Gun Crimes per 10,000 People").attr("id", "chartLabel")
-            .attr("transform", "translate(100, 24)")
+            .attr("transform", "translate(160, 24)")
             .attr("font-family", "sans-serif")
             .attr("font-size", "16")
             .attr("font-weight", "bold")
@@ -222,7 +223,6 @@ class Timeline{
 
                     //divide by the yearly population to get the rate data
                     for(let j = 0; j < incidentCount.length; j++){
-                        //TODO: change this to pick year dynamically
                         let pop = 1;
                         if(year === "2014"){pop = tempState[0].pop2014}
                         else if(year === "2015"){pop = tempState[0].pop2015}
