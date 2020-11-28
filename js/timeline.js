@@ -77,16 +77,10 @@ class Timeline{
         let timeAxis = d3.select("#timeline-pane").append("g")
             .attr("id" , "timelineAxis")
             .attr("stroke-width" , "3")
-            //.on("mouseover", function(d){
-             //   return d3.select(this).transition().duration(100).attr("opacity", "1")
-            //})
-            //.on("mouseout", function(d){
-                //return d3.select(this).transition().duration(100).attr("opacity", "0")
-            //})
-            .attr("transform", "translate(20,410)")
+            .attr("transform", "translate(20,440)")
 
         let tempScale = d3.scaleLinear().domain([0, 11]).range([0, 600]);
-        let xAxis = d3.axisBottom(tempScale).ticks(12).tickSize("100")
+        let xAxis = d3.axisBottom(tempScale).ticks(12).tickSize("10")
 
         //style axis
         let axis = d3.select("#timelineAxis").call(xAxis)
@@ -94,17 +88,13 @@ class Timeline{
             axis.selectAll("text").remove();
         
         //draw global path
-        //let yScale = d3.scaleLinear().domain([0, d3.max(this.ratios, d => d)]).range([400, 0])
-        let yScale = d3.scaleLinear().domain([0, 0.00004]).range([400, 0])
-        //console.log("max path")
-        //console.log(d3.max(this.ratios, d => d))
+        let yScale = d3.scaleLinear().domain([0, 0.000045]).range([400, 0])
         let ALineGenerator = d3
             .line()
             .x((d, i) => tempScale(i))
             .y(d => yScale(d))
-        //TODO: fix line chart drawing
         let ALineChart = d3.select("#timeline-pane").append("g").append("path").attr("id", "countryPath")
-            .attr("transform", " translate(20, 50)")
+            .attr("transform", " translate(20, 45)")
             .attr("fill", "none")
             .attr("stroke-width", "3")
             .attr("stroke", "steelBlue")
@@ -118,7 +108,7 @@ class Timeline{
         for(let i = 0; i < 5; i++){
             let idString = "path" + i;
             let ALineChart = d3.select("#timeline-pane").append("g").append("path").attr("id", idString)
-            .attr("transform", " translate(20, 50)")
+            .attr("transform", " translate(20, 45)")
             .attr("fill", "none")
             .attr("stroke-width", "3")
             .attr("stroke", "steelBlue")
@@ -129,6 +119,14 @@ class Timeline{
                 return ALineGenerator(d);
             });
         }
+
+        //draw chart label
+        d3.select("#timeline-pane").append("g").append("text").text("Gun Crimes per 10,000 People").attr("id", "chartLabel")
+            .attr("transform", "translate(100, 24)")
+            .attr("font-family", "sans-serif")
+            .attr("font-size", "16")
+            .attr("font-weight", "bold")
+            .style("fill", "black")
 
         //draw legend for global rate
         d3.select("#timeline-pane").append("g").append("text").text("USA").attr("id", "countryLegend")
@@ -169,14 +167,11 @@ class Timeline{
                 console.log("there are no states")
             }
 
-            console.log("data")
-            console.log(this.data[2])
-
             //transition the ratio line for the whole country between years on update
             //x scale
         let tempScale = d3.scaleLinear().domain([0, 11]).range([0, 600]);
             //y scale
-        let yScale = d3.scaleLinear().domain([0, 0.00004]).range([400, 0])
+        let yScale = d3.scaleLinear().domain([0, 0.000045]).range([400, 0])
         let ALineGenerator = d3
             .line()
             .x((d, i) => tempScale(i))
