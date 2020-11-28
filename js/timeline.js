@@ -166,13 +166,6 @@ class Timeline{
             else{
                 console.log("there are no states")
             }
-
-<<<<<<< HEAD
-            console.log("data")
-            //console.log(this.data[2])
-
-=======
->>>>>>> 8bf5b776ef42491db420b129a81b5d5993ff78d9
             //transition the ratio line for the whole country between years on update
             //x scale
         let tempScale = d3.scaleLinear().domain([0, 11]).range([0, 600]);

@@ -95,9 +95,11 @@ class Map{
         }
 
         let mousemove = function(d){
+            console.log(d.data)
             tooltip.style('opacity', 1)
             tooltip.html('<p><b>'+d.name+'</b></p>' +
-                '<p>Incidents per Capita:'+ d.data +'</p>')
+                '<p>Population: '+ d.data['pop'+that.year] +'</p>' +
+                '<p>Incidents per Capita: '+ Math.round(d.data['perCap'+that.year], 6) +'</p>')
                 .style("left", (d3.event.pageX+5) + "px")
                 .style("top", (d3.event.pageY) + "px");
         }
@@ -110,12 +112,10 @@ class Map{
 
         let click = function(d){
             if(that.count >= 5){
-                if (d3.select(this).classed('selected')) {
-                    d3.select('.map').selectAll('.states').classed('selected', false)
-                        .transition().duration(200).style('opacity', 1);
-                    that.updateState(null);
-                    that.count = 0;
-                }
+                d3.select('.map').selectAll('.states').classed('selected', false)
+                    .transition().duration(200).style('opacity', 1);
+                that.updateState(null);
+                that.count = 0;
             }else {
                 if (d3.select(this).classed('selected')) {
                     d3.select('.map').selectAll('.states').classed('selected', false)
