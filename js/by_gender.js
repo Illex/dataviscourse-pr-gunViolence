@@ -64,7 +64,7 @@ class Gender{
             Tooltip
                 .style("opacity", 0)
         }
-        console.log(maxes)
+        //console.log(maxes)
 
         let node = svg.selectAll("circle")
             .data(maxes)
