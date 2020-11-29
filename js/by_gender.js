@@ -21,8 +21,11 @@ class Gender{
 
     drawHist() {
         let that = this;
-        let svg = d3.select('.by_gender').append('svg').attr('height', this.height)
-            .attr('width', this.width).append('g')
+        let svg = d3.select('.by_gender').append('svg').attr('id', 'gender_title').attr('height', this.height)
+            .attr('width', this.width).append('g');
+
+        d3.select('#gender_title').append('text')
+            .text('Biggest Incident of the Year').attr('transform', 'translate(50,25)');
 
         let maxes = [];
         for(let s in this.dist[this.year]){

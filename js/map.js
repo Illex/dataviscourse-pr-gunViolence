@@ -99,7 +99,7 @@ class Map{
             tooltip.style('opacity', 1)
             tooltip.html('<p><b>'+d.name+'</b></p>' +
                 '<p>Population: '+ d.data['pop'+that.year] +'</p>' +
-                '<p>Incidents per Capita: '+ Math.round(d.data['perCap'+that.year], 6) +'</p>')
+                '<p>Incidents per 10,000: '+ (d.data['perCap'+that.year]*10000).toFixed(6) +'</p>')
                 .style("left", (d3.event.pageX+5) + "px")
                 .style("top", (d3.event.pageY) + "px");
         }

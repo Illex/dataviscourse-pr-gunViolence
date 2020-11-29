@@ -67,9 +67,9 @@ class State{
             tooltip.transition().duration(200).style("opacity", 0)
         }
 
-        let aLabel = d3.select("#aBlock").append('text').text('Injuries')
+        d3.select("#aBlock").append('text').text('Injuries')
             .attr('transform', 'translate(90,40)')
-        let bLabel = d3.select("#bBlock").append('text').text('Deaths')
+        d3.select("#bBlock").append('text').text('Deaths')
             .attr('transform', 'translate(5,40)')
 
         let a = d3.select( "#aBarChart-axis").attr("transform", "translate(0,70)").call(d3.axisTop(d3.scaleLinear()
