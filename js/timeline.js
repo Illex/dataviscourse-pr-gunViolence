@@ -6,15 +6,59 @@ class Timeline{
         this.ratios = [];
         this.currentStates = []; 
         this.colors = ["#b32222", "#22b39b", "#7b22b3", "#b322a0", "#b37222"];
-        let max = this.findMax(this.data);
+        this.max = this.findMax(this.data);
+        console.log(this.max);
     }
 
     findMax(d){
         let storage = {};
+        let max = 0;
+
+        for(let i = 0; i < d[0].length; i++){
+            let key = d[0][i].date.slice(0,7) + "" + d[0][i].state 
+
+            if(key in storage){
+                storage[key].count++;
+            }
+            else{
+                let temp = {count: 0, state: d[0][i].state}
+                storage[key] = temp;
+            }
+        }
+
+        for(let state in storage){
+            //console.log("finding rate")
+            //console.log(storage[state])
+            //console.log(this.data[2].filter(d => d.state === storage[state].state))
+            let rate = storage[state].count;
+
+            if(state.slice(0,4) === "2013"){
+                continue;
+            }
+            else if(state.slice(0,4) === "2014"){
+                rate = rate / this.data[2].filter(d => d.state === storage[state].state)[0].pop2014
+            }
+            else if(state.slice(0,4) === "2015"){
+                rate = rate / this.data[2].filter(d => d.state === storage[state].state)[0].pop2015
+            }
+            else if(state.slice(0,4) === "2016"){
+                rate = rate / this.data[2].filter(d => d.state === storage[state].state)[0].pop2016
+            }
+            else if(state.slice(0,4) === "2017"){
+                rate = rate / this.data[2].filter(d => d.state === storage[state].state)[0].pop2017
+            }
+            else if(state.slice(0,4) === "2018"){
+                rate = rate / this.data[2].filter(d => d.state === storage[state].state)[0].pop2018
+            };
+
+            if(rate > max){
+                max = rate;
+            }
+        }
 
         //for each state in the set, see if it's key (state + year + month) is in the dictionary if so, add to it's population and event counter
         //else create a new key and add it to the dictionary with the appropriate values.
-        return 0;
+        return max;
     }
 
     //performs first time setup of the timeline
@@ -122,7 +166,7 @@ class Timeline{
         //draw height labels
         d3.select("#timeline-pane").append("g").attr("id", "tick1")
             .append("text")
-            .text("0.50")
+            .text("0.00")
             .attr("transform", "translate(623, 400)")
             .attr("font-family", "sans-serif")
             .attr("font-size", "10")
@@ -130,7 +174,7 @@ class Timeline{
             .style("fill", "black")
         d3.select("#timeline-pane").append("g").attr("id", "tick2")
             .append("text")
-            .text("1.50")
+            .text("3.00")
             .attr("transform", "translate(623, 280)")
             .attr("font-family", "sans-serif")
             .attr("font-size", "10")
@@ -146,7 +190,7 @@ class Timeline{
             .style("fill", "black")
         d3.select("#timeline-pane").append("g").attr("id", "tick4")
             .append("text")
-            .text("4.50")
+            .text("6.00")
             .attr("transform", "translate(623, 42)")
             .attr("font-family", "sans-serif")
             .attr("font-size", "10")
@@ -156,13 +200,14 @@ class Timeline{
 
         
         //draw global path
-        let yScale = d3.scaleLinear().domain([0, 0.000045]).range([650, 0])
+        //let yScale = d3.scaleLinear().domain([0, 0.000045]).range([650, 0])
+        let yScale = d3.scaleLinear().domain([0, this.max]).range([1500, 0])
         let ALineGenerator = d3
             .line()
             .x((d, i) => tempScale(i))
             .y(d => yScale(d))
         let ALineChart = d3.select("#timeline-pane").append("g").append("path").attr("id", "countryPath")
-            .attr("transform", " translate(20, 45)")
+            .attr("transform", " translate(20, -1095)")
             .attr("fill", "none")
             .attr("stroke-width", "3")
             .attr("stroke", "steelBlue")
@@ -176,7 +221,7 @@ class Timeline{
         for(let i = 0; i < 5; i++){
             let idString = "path" + i;
             let ALineChart = d3.select("#timeline-pane").append("g").append("path").attr("id", idString)
-            .attr("transform", " translate(20, 45)")
+            .attr("transform", " translate(20, -1095)")
             .attr("fill", "none")
             .attr("stroke-width", "3")
             .attr("stroke", "steelBlue")
@@ -236,7 +281,7 @@ class Timeline{
             //x scale
         let tempScale = d3.scaleLinear().domain([0, 11]).range([0, 600]);
             //y scale
-        let yScale = d3.scaleLinear().domain([0, 0.000045]).range([400, 0])
+        let yScale = d3.scaleLinear().domain([0, this.max]).range([1500, 0])
         let ALineGenerator = d3
             .line()
             .x((d, i) => tempScale(i))
