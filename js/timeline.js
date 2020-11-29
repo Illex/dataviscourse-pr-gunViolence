@@ -6,7 +6,15 @@ class Timeline{
         this.ratios = [];
         this.currentStates = []; 
         this.colors = ["#b32222", "#22b39b", "#7b22b3", "#b322a0", "#b37222"];
-        //TODO:append rects to the timeline that allow for higlighting of specific information
+        let max = findMax(this.data);
+    }
+
+    findMax(d){
+        let storage = {};
+
+        //for each state in the set, see if it's key (state + year + month) is in the dictionary if so, add to it's population and event counter
+        //else create a new key and add it to the dictionary with the appropriate values.
+        return 0;
     }
 
     //performs first time setup of the timeline
@@ -88,8 +96,67 @@ class Timeline{
             axis.select('.domain').attr("opacity", "0")
             axis.selectAll("text").remove();
         
+        //draw gridlines
+        for(let i = 0; i < 12; i++){
+            d3.select("#timeline-pane").append("g").attr("id", "gridline" + i)
+            .append("line")
+            .attr("x1", (i * 54.6)+20)
+            .attr("x2", (i * 54.6)+20)
+            .attr("y1", "30")
+            .attr("y2", "600")
+            .attr("stroke", "black")
+            .attr("stroke-width", "3")
+            .attr("opacity", ".3")
+        }
+        for(let i = 0; i < 4; i++){
+            d3.select("#timeline-pane").append("g").attr("id", "heightLine" + i)
+            .append("line")
+            .attr("x1", 0)
+            .attr("x2", 650)
+            .attr("y1", i * 120 + 45)
+            .attr("y2", i * 120 + 45)
+            .attr("stroke", "black")
+            .attr("stroke-width", "3")
+            .attr("opacity", ".3")
+        }
+        //draw height labels
+        d3.select("#timeline-pane").append("g").attr("id", "tick1")
+            .append("text")
+            .text("0.50")
+            .attr("transform", "translate(623, 400)")
+            .attr("font-family", "sans-serif")
+            .attr("font-size", "10")
+            .attr("font-weight", "bold")
+            .style("fill", "black")
+        d3.select("#timeline-pane").append("g").attr("id", "tick2")
+            .append("text")
+            .text("1.50")
+            .attr("transform", "translate(623, 280)")
+            .attr("font-family", "sans-serif")
+            .attr("font-size", "10")
+            .attr("font-weight", "bold")
+            .style("fill", "black")
+        d3.select("#timeline-pane").append("g").attr("id", "tick3")
+            .append("text")
+            .text("3.00")
+            .attr("transform", "translate(623, 160)")
+            .attr("font-family", "sans-serif")
+            .attr("font-size", "10")
+            .attr("font-weight", "bold")
+            .style("fill", "black")
+        d3.select("#timeline-pane").append("g").attr("id", "tick4")
+            .append("text")
+            .text("4.50")
+            .attr("transform", "translate(623, 42)")
+            .attr("font-family", "sans-serif")
+            .attr("font-size", "10")
+            .attr("font-weight", "bold")
+            .style("fill", "black")
+
+
+        
         //draw global path
-        let yScale = d3.scaleLinear().domain([0, 0.000045]).range([400, 0])
+        let yScale = d3.scaleLinear().domain([0, 0.000045]).range([650, 0])
         let ALineGenerator = d3
             .line()
             .x((d, i) => tempScale(i))
@@ -151,25 +218,8 @@ class Timeline{
             .attr("font-weight", "bold")
             .style("fill", function(d){
                 return that.colors[i]
-                })
+            })
             .attr("opacity", "0")
-        }
-
-        //TODO: draw invisable mouseover rects that select and show the rate and the month
-        for(let i = 0; i < 12; i++){
-            d3.select("#timeline-pane").append("g").append("rect").attr("id", "rect" + i)
-            .attr("x", i * 54)
-            .attr("y", "10")
-            .attr("width", 650/12)
-            .attr("height", 450)
-            .attr("opacity", "0")
-            .style("fill", "green")
-                .on("mouseover", function(d){
-                    d3.select(this).transition().duration(100).attr("opacity", ".5")
-                })
-                .on("mouseout", function(d){
-                    d3.select(this).transition().duration(100).attr("opacity", "0")
-                })
         }
     }
 
@@ -178,7 +228,6 @@ class Timeline{
             //update the class' states model
             if(typeof(newStates) != "undefined"){
                 this.currentStates = Array.from(newStates);
-                //console.log(this.currentStates)
             }
             else{
                 console.log("there are no states")
@@ -200,6 +249,8 @@ class Timeline{
             else if(year ==="2016"){pathData = this.ratios.slice(24,36)}
             else if(year ==="2017"){pathData = this.ratios.slice(36,48)}
             else if(year ==="2018"){pathData = this.ratios.slice(48,)};
+            console.log("path Data for usa")
+            console.log(pathData)
 
             //draw a new path for the country
              d3.select("#countryPath")
@@ -248,6 +299,8 @@ class Timeline{
                         incidentCount[j] = incidentCount[j] / pop; 
                     }
                     //now incidentCount at each month has the ratio of gun volence per capita
+                    console.log("path Data for state")
+                    console.log(incidentCount)
                     
                     console.log("ratio's for the selected state")
                     //console.log(incidentCount)
