@@ -6,7 +6,7 @@ class Timeline{
         this.ratios = [];
         this.currentStates = []; 
         this.colors = ["#b32222", "#22b39b", "#7b22b3", "#b322a0", "#b37222"];
-        let max = findMax(this.data);
+        let max = this.findMax(this.data);
     }
 
     findMax(d){
