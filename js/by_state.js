@@ -73,7 +73,7 @@ class State{
             .attr('transform', 'translate(5,40)')
 
         let a = d3.select( "#aBarChart-axis").attr("transform", "translate(0,70)").call(d3.axisTop(d3.scaleLinear()
-            .domain([0, d3.max(that.data, d => d['injuries'+that.year])]).range([that.barWidth, 5])).ticks(4));
+            .domain([0, d3.max(that.data, d => d['injuries'+that.year])]).range([that.barWidth, 5])).ticks(5));
         a = a.append('g').attr('id', 'aBarChart').attr('transform', 'translate(140, 3)')
         let barsa = a.selectAll('rect').data(this.data);
         let new_barsa = barsa.enter().append('rect')

@@ -81,18 +81,15 @@ class Gender{
             .on("mouseover", mouseover)
             .on("mouseleave", mouseleave)
 
-        /*let simulation = d3.forceSimulation()
+        let simulation = d3.forceSimulation()
             .force("center", d3.forceCenter().x(that.width / 2).y(that.height / 2))
             .force("charge", d3.forceManyBody().strength(0.5))
             .force("collide", d3.forceCollide().strength(.01).radius(30).iterations(1))
 
-        this.simulation
-            .nodes(maxes)
+        simulation.nodes(maxes)
             .on("tick", function(d){
                 node.attr("cx", function(d){ return d.x; })
                     .attr("cy", function(d){ return d.y; })
             });
-
-         */
     }
 }

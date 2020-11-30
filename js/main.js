@@ -67,6 +67,8 @@ Promise.all(words).then(data =>
     })
     d3.select("#yearFilter").on("change", function(d){
         //every time this filter is changed all the following funcitons are called
+        let year = document.getElementById('yearFilter').value
+        updateYear(year)
         incidents.storyUpdate(states);
         timeLine.chartUpdate();
     })
@@ -81,4 +83,6 @@ Promise.all(words).then(data =>
 
 
 });
+
+
 

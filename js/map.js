@@ -35,8 +35,8 @@ class Map{
 
     updateYear(year){
         this.year = year;
-        d3.select('.map').remove();
-        this.drawMap();
+        console.log(year)
+        this.updateMap();
     }
 
     getPerCapita(){
@@ -72,6 +72,7 @@ class Map{
     }
 
     drawMap(country) {
+        this.country = country;
         let that = this
         let geojson = topojson.feature(country, country.objects.states);
         let path = d3.geoPath(this.projection);
@@ -142,6 +143,9 @@ class Map{
             .style('font', '10px sans-serif')
             .style('position', 'absolute')
 
+        selection.append('text').attr('id', 'textlabel').text(that.year).attr('transform', 'translate(510,30)')
+            .style('font-size', '38px')
+
         selection.selectAll("path").data(states).enter().append('path')
             .attr('d', path).attr('id', d => d.name).classed('states', true)
             .classed('boundary', true).style("fill", function (d) {
@@ -152,6 +156,17 @@ class Map{
             .on('click', click).on('mousemove', mousemove)
 
 
+    }
+
+    updateMap() {
+        let that = this;
+        let s = d3.select(".map").selectAll("path")
+        let cap_year = 'perCap' + this.year;
+        s.style('fill', function(d){
+            let temp = that.colorScale(Math.log(d.data[cap_year]));
+            return temp;
+        })
+        d3.select("#textlabel").text(that.year)
     }
 
 }
