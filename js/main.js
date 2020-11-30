@@ -27,6 +27,7 @@ Promise.all(words).then(data =>
         //console.log(that.states)
         // TODO - update state filters
         by_state.addState(that.states);
+        gender.addState(that.states);
         //update states in the incident list
         incidents.storyUpdate(states);
         timeLine.chartUpdate(states, data);
@@ -36,6 +37,7 @@ Promise.all(words).then(data =>
       //  console.log(year)
         that.activeYear = year;
         map.updateYear(year);
+        gender.changeYear(year);
     }
 
     //create objects
