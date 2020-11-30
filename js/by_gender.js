@@ -55,6 +55,7 @@ class Gender{
             .style("border-width", "2px")
             .style("border-radius", "3px")
             .style("padding", "5px")
+            .attr('position', 'absolute')
 
         let mouseover = function(d) {
             Tooltip
@@ -74,7 +75,7 @@ class Gender{
             .attr("r", d => size(+d.deaths))
             .attr("cx", that.width / 2)
             .attr("cy", that.height / 2)
-            .style("fill", d => colorScale(d => +d.deaths))
+            .style("fill", d => colorScale(+d.deaths))
             .style("fill-opacity", 0.8)
             .attr("stroke", "black")
             .style("stroke-width", 1)
