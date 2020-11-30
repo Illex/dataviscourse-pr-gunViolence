@@ -274,7 +274,7 @@ class Timeline{
             .attr("stroke-width", "3")
             .attr("stroke", "steelBlue")
         //datum is the year 2014
-            .datum(this.ratios.slice(12,24))
+            .datum(this.ratios.slice(0,12))
             .attr("d", function(d){
                 return ALineGenerator(d);
             });
@@ -331,6 +331,59 @@ class Timeline{
     }
 
         chartUpdate(newStates){
+
+            //update the month highlight
+            let m = document.getElementById("monthFilter").value;
+            console.log("m")
+            console.log(m)
+            if(m === "January"){
+                d3.select("#timeline-pane").selectAll("line").attr("opacity", ".3")
+                d3.select("#timeline-pane").select("#gridline0").selectAll("line").attr("opacity", "1")
+            }
+            if(m === "February"){
+                d3.select("#timeline-pane").selectAll("line").attr("opacity", ".3")
+                d3.select("#timeline-pane").select("#gridline1").selectAll("line").attr("opacity", "1")
+            }
+            if(m === "March"){
+                d3.select("#timeline-pane").selectAll("line").attr("opacity", ".3")
+                d3.select("#timeline-pane").select("#gridline2").selectAll("line").attr("opacity", "1")
+            }
+            if(m === "April"){
+                d3.select("#timeline-pane").selectAll("line").attr("opacity", ".3")
+                d3.select("#timeline-pane").select("#gridline3").selectAll("line").attr("opacity", "1")
+            }
+            if(m === "May"){
+                d3.select("#timeline-pane").selectAll("line").attr("opacity", ".3")
+                d3.select("#timeline-pane").select("#gridline4").selectAll("line").attr("opacity", "1")
+            }
+            if(m === "June"){
+                d3.select("#timeline-pane").selectAll("line").attr("opacity", ".3")
+                d3.select("#timeline-pane").select("#gridline5").selectAll("line").attr("opacity", "1")
+            }
+            if(m === "July"){
+                d3.select("#timeline-pane").selectAll("line").attr("opacity", ".3")
+                d3.select("#timeline-pane").select("#gridline6").selectAll("line").attr("opacity", "1")
+            }
+            if(m === "August"){
+                d3.select("#timeline-pane").selectAll("line").attr("opacity", ".3")
+                d3.select("#timeline-pane").select("#gridline7").selectAll("line").attr("opacity", "1")
+            }
+            if(m === "September"){
+                d3.select("#timeline-pane").selectAll("line").attr("opacity", ".3")
+                d3.select("#timeline-pane").select("#gridline8").selectAll("line").attr("opacity", "1")
+            }
+            if(m === "October"){
+                d3.select("#timeline-pane").selectAll("line").attr("opacity", ".3")
+                d3.select("#timeline-pane").select("#gridline9").selectAll("line").attr("opacity", "1")
+            }
+            if(m === "November"){
+                d3.select("#timeline-pane").selectAll("line").attr("opacity", ".3")
+                d3.select("#timeline-pane").select("#gridline10").selectAll("line").attr("opacity", "1")
+            }
+            if(m === "December"){
+                d3.select("#timeline-pane").selectAll("line").attr("opacity", ".3")
+                d3.select("#timeline-pane").select("#gridline11").selectAll("line").attr("opacity", "1")
+            }
 
             //update the class' states model
             if(typeof(newStates) != "undefined"){

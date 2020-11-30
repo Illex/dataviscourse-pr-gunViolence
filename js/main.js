@@ -77,6 +77,7 @@ Promise.all(words).then(data =>
     d3.select("#monthFilter").on("change", function(d){
         //every time this filter is changed all the following funcitons are called
         incidents.storyUpdate(states);
+        timeLine.chartUpdate();
     })
 
     const storyPane = new Story(data);
