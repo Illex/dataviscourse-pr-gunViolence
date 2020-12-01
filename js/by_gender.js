@@ -11,6 +11,7 @@ class Gender{
         this.height = 490;
         this.states = states;
         this.scaleX = d3.scaleLinear().domain([0,10]).range([0, this.width]);
+        this.colors = ["#b32222", "#22b39b", "#7b22b3", "#b322a0", "#b37222"];
 
     }
 
@@ -23,10 +24,13 @@ class Gender{
     addState(states){
         this.states = states;
         console.log(states);
+        let that = this;
         if(states.size === 0){
-            this.node.style('opacity', .8).style('border-width', '2px');
+            this.node.style('opacity', .8).style('border-width', '2px')
+                .style("fill", d => that.colorScale(+d.deaths));
         }else{
-            this.node.filter(d => states.has(d.state)).style('opacity', 1).style('border-width', '6px')
+            this.node.filter(d => states.has(d.state)).style('opacity', 1).style('border-width', '4px')
+                .style('fill', (d,i) => that.colors[i])
             this.node.filter(d => !states.has(d.state)).style('opacity', .3)
         }
     }
@@ -87,6 +91,12 @@ class Gender{
             Tooltip
                 .style("opacity", 0)
         }
+        let click = function(d){
+            window.open(
+                d.url,
+                '_blank'
+            );
+        }
         //console.log(maxes)
 
         let node = svg.selectAll("circle")
@@ -112,7 +122,7 @@ class Gender{
         let simulation = d3.forceSimulation()
             .force("center", d3.forceCenter().x(that.width / 2).y(that.height / 2-5))
             .force("charge", d3.forceManyBody().strength(0.5))
-            .force("collide", d3.forceCollide().strength(.01).radius(31).iterations(1))
+            .force("collide", d3.forceCollide().strength(.01).radius(29).iterations(1))
 
         simulation.nodes(maxes)
             .on("tick", function(d){
@@ -134,5 +144,6 @@ class Gender{
             d.fy = null;
         }
         this.node = node;
+        this.colorScale = colorScale;
     }
 }

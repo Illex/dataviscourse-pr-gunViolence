@@ -12,6 +12,7 @@ class State{
         this.maxWidth = 135;
         this.year = year;
         this.states = states;
+        this.colors = ["#b32222", "#22b39b", "#7b22b3", "#b322a0", "#b37222"];
 
         this.aScale = d3
             .scaleLinear()
