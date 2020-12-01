@@ -36,6 +36,11 @@ class Map{
     updateYear(year){
         this.year = year;
         console.log(year)
+        d3.select('.map').selectAll('.states').classed('selected', false)
+            .transition().duration(200).style('opacity', 1);
+        this.updateState(null)
+        console.log(d3.select('.map').selectAll('.states').classed('selected'))
+        this.count = 0;
         this.updateMap();
     }
 

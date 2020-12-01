@@ -21,6 +21,10 @@ class Gender{
         this.drawHist();
     }
 
+    sort(){
+
+    }
+
     addState(states){
         this.states = states;
         console.log(states);

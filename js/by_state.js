@@ -22,8 +22,51 @@ class State{
             .scaleLinear()
             .domain([0, d3.max(this.data, d => d['deaths'+this.year])])
             .range([0, this.maxWidth]);
+        this.sorted = {'injuries' : 'No', 'deaths': 'No'}
+
+        this.sort();
 
 
+    }
+
+    sort(){
+        let that = this;
+        d3.select("#aBlock").on('click', function(d){
+            console.log('a')
+            let temp = [];
+            let injuries = that.data.map(d => d['injuries'+that.year]).sort(function(a, b){return a-b})
+            for(let i of injuries){
+                temp.push(that.data.filter(d => d['injuries'+that.year] === i)[0]);
+            }
+            if(that.sorted['injuries'] === 'Asc'){
+                temp = temp.reverse();
+                that.sorted['injuries'] = 'Desc'
+            }else{
+                that.sorted['injuries'] = 'Asc'
+            }
+            that.sorted['deaths'] = 'No'
+            that.data = temp;
+            that.updateBars();
+        })
+
+        d3.select("#bBlock").on('click', function(d){
+            console.log('b')
+            let temp = []
+            let deaths = that.data.map(d => d['deaths'+that.year]).sort(function(a, b){return a-b})
+            for(let i of deaths){
+                temp.push(that.data.filter(d => d['deaths'+that.year] === i)[0]);
+            }
+            if(that.sorted['deaths'] === 'Asc'){
+                console.log("A")
+                temp = temp.reverse();
+                that.sorted['deaths'] = 'Desc'
+            }else{
+                that.sorted['deaths'] = 'Asc'
+            }
+            that.sorted['injuries'] = 'No'
+            that.data = temp;
+            that.updateBars();
+        })
     }
 
 
@@ -32,17 +75,16 @@ class State{
 
         let that = this;
         this.data = this.og_data.filter(d => that.states.has(d.state))
+        let temp = [];
+        for(let i of states){
+            temp.push(this.data.filter(d => d.state === i)[0])
+        }
+        this.data = temp;
         if(this.data.length === 0){
             this.data = this.og_data;
         }
-        this.aScale = d3
-            .scaleLinear()
-            .domain([0, d3.max(this.data, d => d['injuries'+this.year])])
-            .range([0, this.width/2-5]);
-        this.bScale = d3
-            .scaleLinear()
-            .domain([0, d3.max(this.data, d => d['deaths'+this.year])])
-            .range([0, this.width/2-5]);
+        this.sorted['injuries'] = 'No'
+        this.sorted['deaths'] = 'No'
 
         this.updateBars();
     }
@@ -76,7 +118,7 @@ class State{
         let a = d3.select( "#aBarChart-axis").attr("transform", "translate(0,70)").call(d3.axisTop(d3.scaleLinear()
             .domain([0, d3.max(that.data, d => d['injuries'+that.year])]).range([that.barWidth, 5])).ticks(5));
         a = a.append('g').attr('id', 'aBarChart').attr('transform', 'translate(140, 3)')
-        let barsa = a.selectAll('rect').data(this.data);
+        let barsa = a.selectAll('rect').data(that.data);
         let new_barsa = barsa.enter().append('rect')
             .attr('width', (d, i) => that.aScale(d['injuries'+that.year])).attr('height', 22)
             .attr('x', 0).attr('y', (d,i) => i * 24)
@@ -86,9 +128,9 @@ class State{
         new_barsa.merge(barsa);
 
 
-        let b = d3.select("#bBarChart-axis").attr("transform", "translate(5,70)").call(d3.axisTop(this.bScale).ticks(4))
+        let b = d3.select("#bBarChart-axis").attr("transform", "translate(5,70)").call(d3.axisTop(that.bScale).ticks(4))
         b = b.append('g').attr('id', 'bBarChart').attr('transform', 'translate(0,3)')
-        let barsb = b.selectAll('rect').data(this.data);
+        let barsb = b.selectAll('rect').data(that.data);
         let new_barsb = barsb.enter().append('rect')
             .attr('width', (d, i) => that.bScale(d['deaths'+that.year])).attr('height', 22)
             .attr('x', 0).attr('y', (d,i) => i * 24).style('fill', '#B37222')
@@ -135,7 +177,8 @@ class State{
             .attr('transform', 'scale(-1,1)').style('fill', '#7B22B3')
             .on('mouseover', mouseover).on('mousemove', mousemove).on('mouseleave', mouseleave);
         barsa.exit().remove();
-        barsa = new_barsa.merge(barsa);
+        barsa = new_barsa.merge(barsa).transition().duration(500)
+            .attr('width', (d, i) => that.aScale(d['injuries'+that.year])).attr('height', 22);
 
         let barsb = d3.select('#bBarChart').selectAll('rect').data(that.data);
         let new_barsb = barsb.enter().append('rect')
@@ -143,7 +186,8 @@ class State{
             .attr('x', 0).attr('y', (d,i) => i * 24).style('fill', '#B37222')
             .on('mouseover', mouseover).on('mousemove', mousemove).on('mouseleave', mouseleave);
         barsb.exit().remove();
-        barsb = new_barsb.merge(barsb);
+        barsb = new_barsb.merge(barsb).transition().duration(500)
+            .attr('width', (d, i) => that.bScale(d['deaths'+that.year])).attr('height', 22);
 
         if(this.states.size <= 5 && this.states.size > 0){
             barsa.style('fill', (d,i) => that.colors[i])

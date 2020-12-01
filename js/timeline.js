@@ -7,7 +7,6 @@ class Timeline{
         this.currentStates = []; 
         this.colors = ["#b32222", "#22b39b", "#7b22b3", "#b322a0", "#b37222"];
         this.max = this.findMax(this.data);
-        console.log(this.max);
     }
 
     findMax(d){
@@ -334,8 +333,6 @@ class Timeline{
 
             //update the month highlight
             let m = document.getElementById("monthFilter").value;
-            console.log("m")
-            console.log(m)
             if(m === "January"){
                 d3.select("#timeline-pane").selectAll("line").attr("opacity", ".3")
                 d3.select("#timeline-pane").select("#gridline0").selectAll("line").attr("opacity", "1")
@@ -409,8 +406,6 @@ class Timeline{
             else if(year ==="2016"){pathData = this.ratios.slice(24,36)}
             else if(year ==="2017"){pathData = this.ratios.slice(36,48)}
             else if(year ==="2018"){pathData = this.ratios.slice(48,)};
-            console.log("path Data for usa")
-            console.log(pathData)
 
             //draw a new path for the country
              d3.select("#countryPath")
@@ -458,9 +453,6 @@ class Timeline{
                         
                         incidentCount[j] = incidentCount[j] / pop; 
                     }
-                    //now incidentCount at each month has the ratio of gun volence per capita
-                    console.log("path Data for state")
-                    console.log(incidentCount)
                     
                     console.log("ratio's for the selected state")
                     //console.log(incidentCount)
