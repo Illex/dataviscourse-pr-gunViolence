@@ -93,8 +93,9 @@ class State{
             .attr('width', (d, i) => that.bScale(d['deaths'+that.year])).attr('height', 22)
             .attr('x', 0).attr('y', (d,i) => i * 24).style('fill', '#B37222')
             .on('mouseover', mouseover).on('mousemove', mousemove).on('mouseleave', mouseleave);
-        barsa.exit().remove();
+        barsb.exit().remove();
         new_barsb.merge(barsb);
+
 
         let tooltip = d3.select('.by_state').append('div').style("opacity", 0)
             .attr("class", "tooltip")
@@ -134,7 +135,7 @@ class State{
             .attr('transform', 'scale(-1,1)').style('fill', '#7B22B3')
             .on('mouseover', mouseover).on('mousemove', mousemove).on('mouseleave', mouseleave);
         barsa.exit().remove();
-        new_barsa.merge(barsa);
+        barsa = new_barsa.merge(barsa);
 
         let barsb = d3.select('#bBarChart').selectAll('rect').data(that.data);
         let new_barsb = barsb.enter().append('rect')
@@ -142,7 +143,16 @@ class State{
             .attr('x', 0).attr('y', (d,i) => i * 24).style('fill', '#B37222')
             .on('mouseover', mouseover).on('mousemove', mousemove).on('mouseleave', mouseleave);
         barsb.exit().remove();
-        new_barsb.merge(barsb);
+        barsb = new_barsb.merge(barsb);
+
+        if(this.states.size <= 5 && this.states.size > 0){
+            barsa.style('fill', (d,i) => that.colors[i])
+            barsb.style('fill', (d,i) => that.colors[i])
+        }else{
+            barsa.style('fill', '#7B22B3')
+            barsb.style('fill', '#B37222')
+        }
+
         let tooltip = d3.select('.by_state').append('div').style("opacity", 0)
             .attr("class", "tooltip")
             .style("background-color", "white")

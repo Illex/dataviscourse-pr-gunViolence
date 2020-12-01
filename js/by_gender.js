@@ -114,6 +114,7 @@ class Gender{
             .on("mouseover", mouseover)
             .on('mousemove', mousemove)
             .on("mouseleave", mouseleave)
+            .on('click', click)
             .call(d3.drag()
                 .on("start", dragstarted)
                 .on("drag", dragged)
