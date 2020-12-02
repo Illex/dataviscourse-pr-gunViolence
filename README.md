@@ -10,3 +10,6 @@ By selecting states on the map and chaning the filters in the timeline you can s
 with gun violence in the U.S and compare states against each other.  The incident pan in the bottom left
 can be used to see information about specific events and the two buttons labeled, open source, and open archive
 can be used to see the actual news story that broke on the event.
+
+The data directory contains all the cleaned data used for the visualization. The unmodified csv can be access at the link above.
+gunviolence.html contains the visualization structure and all the running js code sits inside the js directory.
