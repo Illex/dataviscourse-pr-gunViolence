@@ -6,6 +6,7 @@ Data Source : <a href="https://github.com/jamesqo/gun-violence-data"> Here</a>
 <br>
 ScreenCast Url here:
 <br>
+<br>
 This project visualizes data sourced from GunViolenceArchive.org aggrigated at the link above.
 Here you can sift through data from 2014/1/1 through 2018/3/31 to see all the recoreded events in our data set.
 By selecting states on the map and chaning the filters in the timeline you can see the trends associated 
