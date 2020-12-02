@@ -1,6 +1,6 @@
 # dataviscourse-pr-gunViolence
 
-Project Website: <a href="https://illex.github.io/dataviscourse-pr-gunViolence/gunviolence.html"> Here</a>
+Visualization Website: <a href="https://illex.github.io/dataviscourse-pr-gunViolence/gunviolence.html"> Here</a>
 <br>
 Data Source : <a href="https://github.com/jamesqo/gun-violence-data"> Here</a>
 <br>
