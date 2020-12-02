@@ -19,6 +19,17 @@ class Gender{
         this.year = year;
         d3.select('#gender_title').remove()
         this.drawHist();
+        let i = 0
+        for(let j of this.states){
+            console.log(this.colors[i], this.node.filter(d => d.state === j), j)
+            this.node.filter(d => d.state === j).style('border-width', '4px')
+                .style('fill', this.colors[i]).style('opacity', 1)
+            i += 1;
+        }
+    }
+
+    updateHist(){
+
     }
 
     sort(){
@@ -27,14 +38,17 @@ class Gender{
 
     addState(states){
         this.states = states;
-        console.log(states);
         let that = this;
+        let temp = [...states];
+        let new_state = temp.pop();
         if(states.size === 0){
             this.node.style('opacity', .8).style('border-width', '2px')
                 .style("fill", d => that.colorScale(+d.deaths));
         }else{
-            this.node.filter(d => states.has(d.state)).style('opacity', 1).style('border-width', '4px')
-                .style('fill', (d,i) => that.colors[i])
+            let color = that.colors[states.size-1]
+            console.log(color, this.node.filter(d => d.state === new_state), new_state)
+            this.node.filter(d => d.state === new_state).style('border-width', '4px')
+                .style('fill', color).style('opacity', 1)
             this.node.filter(d => !states.has(d.state)).style('opacity', .3)
         }
     }
@@ -45,7 +59,7 @@ class Gender{
             .attr('width', this.width).append('g');
 
         d3.select('#gender_title').append('text')
-            .text('Biggest Incident of the Year').attr('transform', 'translate(50,25)');
+            .text('Deadliest Incident of the Year').attr('transform', 'translate(50,25)');
 
         let maxes = [];
         for(let s in this.dist[this.year]){

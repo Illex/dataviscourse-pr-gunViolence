@@ -8,7 +8,7 @@ class State{
 
         this.height = 500;
         this.width = 295;
-        this.barWidth = 140;
+        this.barWidth = 138;
         this.maxWidth = 135;
         this.year = year;
         this.states = states;
@@ -111,12 +111,12 @@ class State{
         }
 
         d3.select("#aBlock").append('text').text('Injuries')
-            .attr('transform', 'translate(90,40)')
+            .attr('transform', 'translate(87,40)')
         d3.select("#bBlock").append('text').text('Deaths')
             .attr('transform', 'translate(5,40)')
 
         let a = d3.select( "#aBarChart-axis").attr("transform", "translate(0,70)").call(d3.axisTop(d3.scaleLinear()
-            .domain([0, d3.max(that.data, d => d['injuries'+that.year])]).range([that.barWidth, 5])).ticks(5));
+            .domain([0, d3.max(that.data, d => d['injuries'+that.year])]).range([that.barWidth, 5])).ticks(4));
         a = a.append('g').attr('id', 'aBarChart').attr('transform', 'translate(140, 3)')
         let barsa = a.selectAll('rect').data(that.data);
         let new_barsa = barsa.enter().append('rect')
@@ -177,7 +177,7 @@ class State{
             .attr('transform', 'scale(-1,1)').style('fill', '#7B22B3')
             .on('mouseover', mouseover).on('mousemove', mousemove).on('mouseleave', mouseleave);
         barsa.exit().remove();
-        barsa = new_barsa.merge(barsa).transition().duration(500)
+        barsa = new_barsa.merge(barsa).transition().duration(100)
             .attr('width', (d, i) => that.aScale(d['injuries'+that.year])).attr('height', 22);
 
         let barsb = d3.select('#bBarChart').selectAll('rect').data(that.data);
@@ -186,12 +186,16 @@ class State{
             .attr('x', 0).attr('y', (d,i) => i * 24).style('fill', '#B37222')
             .on('mouseover', mouseover).on('mousemove', mousemove).on('mouseleave', mouseleave);
         barsb.exit().remove();
-        barsb = new_barsb.merge(barsb).transition().duration(500)
+        barsb = new_barsb.merge(barsb).transition().duration(100)
             .attr('width', (d, i) => that.bScale(d['deaths'+that.year])).attr('height', 22);
 
         if(this.states.size <= 5 && this.states.size > 0){
-            barsa.style('fill', (d,i) => that.colors[i])
-            barsb.style('fill', (d,i) => that.colors[i])
+            let iter = 0;
+            for(let i of this.states){
+                barsa.filter(d => d.state == i).style('fill', that.colors[iter])
+                barsb.filter(d => d.state == i).style('fill', that.colors[iter])
+                iter += 1;
+            }
         }else{
             barsa.style('fill', '#7B22B3')
             barsb.style('fill', '#B37222')

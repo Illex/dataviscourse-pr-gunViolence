@@ -7,7 +7,7 @@
       <change beforePath="$PROJECT_DIR$/js/by_gender.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/by_gender.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/js/by_state.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/by_state.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/js/map.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/map.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/js/timeline.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/timeline.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/styles.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -48,7 +48,7 @@
       <option name="presentableId" value="Default" />
       <updated>1604262841972</updated>
       <workItem from="1604262843123" duration="22199000" />
-      <workItem from="1605380008680" duration="53572000" />
+      <workItem from="1605380008680" duration="62080000" />
     </task>
     <servers />
   </component>

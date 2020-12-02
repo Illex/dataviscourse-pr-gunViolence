@@ -25,6 +25,7 @@ class Map{
         this.stateData = data;
         this.updateState = updateState;
         this.count = 0;
+        this.colors = ["#b32222", "#22b39b", "#7b22b3", "#b322a0", "#b37222"];
 
         this.projection = d3.geoAlbersUsa().scale(800).translate([305, 250]);
         this.getPerCapita();
@@ -35,12 +36,6 @@ class Map{
 
     updateYear(year){
         this.year = year;
-        console.log(year)
-        d3.select('.map').selectAll('.states').classed('selected', false)
-            .transition().duration(200).style('opacity', 1);
-        this.updateState(null)
-        console.log(d3.select('.map').selectAll('.states').classed('selected'))
-        this.count = 0;
         this.updateMap();
     }
 
@@ -119,17 +114,27 @@ class Map{
         let click = function(d){
             if(that.count >= 5){
                 d3.select('.map').selectAll('.states').classed('selected', false)
-                    .transition().duration(200).style('opacity', 1);
+                    .transition().duration(200).style('opacity', 1).style("fill", function (d) {
+                    let cap_year = 'perCap' + that.year;
+                    let temp = that.colorScale(Math.log(d.data[cap_year]));
+                    return temp;
+                });
                 that.updateState(null);
                 that.count = 0;
             }else {
                 if (d3.select(this).classed('selected')) {
                     d3.select('.map').selectAll('.states').classed('selected', false)
-                        .transition().duration(200).style('opacity', 1);
+                        .transition().duration(200).style('opacity', 1).style("fill", function (d) {
+                        let cap_year = 'perCap' + that.year;
+                        let temp = that.colorScale(Math.log(d.data[cap_year]));
+                        return temp;
+                    });
                     that.updateState(null)
                     that.count = 0;
                 } else {
+                    let temp = that.count;
                     d3.select(this).classed('selected', true).transition().duration(200);
+                    d3.select(this).style('fill', (d,i) => that.colors[temp])
                     that.updateState(d3.select(this).attr('id'))
                     that.count += 1;
                 }
@@ -165,7 +170,10 @@ class Map{
 
     updateMap() {
         let that = this;
-        let s = d3.select(".map").selectAll("path")
+        let s = d3.select(".map").selectAll("path").filter(function() {
+            return !this.classList.contains('selected')
+        })
+        console.log(s)
         let cap_year = 'perCap' + this.year;
         s.style('fill', function(d){
             let temp = that.colorScale(Math.log(d.data[cap_year]));
