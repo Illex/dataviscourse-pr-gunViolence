@@ -4,9 +4,9 @@ Visualization Website: <a href="https://illex.github.io/dataviscourse-pr-gunViol
 <br>
 Data Source : <a href="https://github.com/jamesqo/gun-violence-data"> Here</a>
 <br>
-<video width="320" height="240 controls>
-       <source src="https://www.youtube.com/watch?v=fqrrnmoQG6E&feature=youtu.be" type="video/mp4">
-  </video>                                                                                                 
+ <iframe width="420" height="315"
+       src="https://www.youtube.com/watch?v=fqrrnmoQG6E&feature=youtu.be">
+</iframe> >                                                                                                 
 <br>
 <br>
 This project visualizes data sourced from GunViolenceArchive.org. you can access the visualization at the project website link above.
