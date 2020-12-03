@@ -19,7 +19,9 @@ Promise.all(words).then(data =>
 
     function updateState(state) {
         //pass in a null to clear the set
-        if(state != null){
+        if(that.states.has(state)){
+            that.states.delete(state);
+        }else if(state != null){
             that.states.add(state);
         }else{
             that.states = new Set();

@@ -111,6 +111,17 @@ class Map{
             tooltip.transition().duration(200).style("opacity", 0)
         }
 
+        let clear = function(d){
+            d3.select('.map').selectAll('.states').classed('selected', false)
+                .transition().duration(200).style('opacity', 1).style("fill", function (d) {
+                let cap_year = 'perCap' + that.year;
+                let temp = that.colorScale(Math.log(d.data[cap_year]));
+                return temp;
+            });
+            that.updateState(null);
+            that.count = 0;
+        }
+
         let click = function(d){
             if(that.count >= 5){
                 d3.select('.map').selectAll('.states').classed('selected', false)
@@ -123,14 +134,15 @@ class Map{
                 that.count = 0;
             }else {
                 if (d3.select(this).classed('selected')) {
-                    d3.select('.map').selectAll('.states').classed('selected', false)
-                        .transition().duration(200).style('opacity', 1).style("fill", function (d) {
+                    let temp = that.count;
+                    d3.select(this).classed('selected', false).transition().duration(200);
+                    d3.select(this).style("fill", function (d) {
                         let cap_year = 'perCap' + that.year;
                         let temp = that.colorScale(Math.log(d.data[cap_year]));
                         return temp;
                     });
-                    that.updateState(null)
-                    that.count = 0;
+                    that.updateState(d3.select(this).attr('id'))
+                    that.count -= 1;
                 } else {
                     let temp = that.count;
                     d3.select(this).classed('selected', true).transition().duration(200);
@@ -143,6 +155,10 @@ class Map{
 
         //plot map
         let selection = d3.select('.map').append('svg').attr('height', 500).attr('width', 610);
+
+        let button = d3.select('.map').append('button').attr('type', 'button').text("Clear All")
+            .on('click', clear)
+            .attr('position', 'absolute').classed('button', true);
         let tooltip = d3.select('.map').append('div').style("opacity", 0)
             .attr("class", "tooltip")
             .style("background-color", "white")
