@@ -4,6 +4,7 @@
 .wrapper {
     display: grid;
     /*edit pixels as needed*/
+    margin: auto;
     grid-template-columns: repeat(4, 310px);
     grid-template-rows: repeat(2, 500px);
     height: 1100px;
