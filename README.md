@@ -6,7 +6,7 @@ Data Source : <a href="https://github.com/jamesqo/gun-violence-data"> Here</a>
 <br>
  <iframe width="420" height="315"
        src="https://www.youtube.com/watch?v=fqrrnmoQG6E&feature=youtu.be">
-</iframe> >                                                                                                 
+</iframe>                                                                                                 
 <br>
 <br>
 This project visualizes data sourced from GunViolenceArchive.org. you can access the visualization at the project website link above.
